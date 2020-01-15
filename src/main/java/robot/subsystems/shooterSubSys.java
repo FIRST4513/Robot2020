@@ -160,11 +160,11 @@ loadMotor.setInverted(false);
         boolean leftLS = turretLeftLimitSwitch.get();
         boolean rightLS = turretRightLimitSwitch.get();
 
-        if(leftLS && rightLS == true) {
+        if (leftLS && rightLS == true) {
             whichLimitSwitchPressed = "both";
-        } else if(leftLS == true) {
+        } else if (leftLS == true) {
             whichLimitSwitchPressed = "left";
-        }else if(rightLS == true) {
+        } else if (rightLS == true) {
             whichLimitSwitchPressed = "right";
         } else {
             whichLimitSwitchPressed = "neither";
