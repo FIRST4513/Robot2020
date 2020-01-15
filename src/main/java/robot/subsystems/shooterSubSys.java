@@ -126,5 +126,65 @@ loadMotor.setInverted(false);
     // Put methods for controlling this subsystem
     // here. Call these from Commands.
 
+    /*     Base Subsystems     */
+
+    public void resetEncoders() {
+        flywheelMotor.getSensorCollection().setQuadraturePosition(0, 10);
+        turretEncoder.reset();
+        hoodEncoder.reset();
+    }
+
+    /*     Flywheel Subsystems     */
+
+    public int getFlywheelEncoder() {
+        return flywheelMotor.getSelectedSensorPosition();
+    }
+
+    public void moveFlywheel(double power) {
+
+    }
+
+    /*     Turret Subsystems     */
+
+    public int getTurretEncoder() {
+        return turretEncoder.get();
+    }
+
+    public float getTurretAngle() {
+        float CONVERSION = 3; //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! TUNING NEEDED
+        float angle = (getTurretEncoder())*CONVERSION;
+        return angle;
+    }
+
+    public String checkTurretLimitSwitches() {
+        String whichLimitSwitchPressed = "neither";
+        boolean leftLS = turretLeftLimitSwitch.get();
+        boolean rightLS = turretRightLimitSwitch.get();
+
+        if(leftLS == true) {
+            if(leftLS == rightLS) {
+                whichLimitSwitchPressed = "both";
+            } else {
+                whichLimitSwitchPressed = "left";
+            }
+        } else if (rightLS == true) {
+            whichLimitSwitchPressed = "right";
+        } else {
+            whichLimitSwitchPressed = "neither";
+        }
+        return whichLimitSwitchPressed;
+    }
+
+    /*     Hood Subsystems     */
+
+    public int getHoodEncoder() {
+        return hoodEncoder.get();
+    }
+
+    public float getHoodAngle() {
+        float CONVERSION = 3; //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! TUNING NEEDED
+        float angle = (getHoodEncoder())*CONVERSION;
+        return angle;
+    }
 }
 
