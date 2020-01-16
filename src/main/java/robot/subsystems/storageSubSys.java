@@ -104,5 +104,20 @@ addChild("storageBallSensor5",storageBallSensor5);
     // Put methods for controlling this subsystem
     // here. Call these from Commands.
 
+
+//-------------StaorageMethods-----------//
+
+    public boolean getBallSensorOne()    {
+    }
+    public boolean getBallSensorTwo()    {
+    }
+    public boolean getBallSensorThree()  {
+    }
+    public boolean getBallSensorFour()   {
+    }
+    public boolean getBallSensorFive()   {
+
+    }
+
 }
 
