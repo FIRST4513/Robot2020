@@ -108,15 +108,19 @@ addChild("storageBallSensor5",storageBallSensor5);
 //-------------StaorageMethods-----------//
 
     public boolean getBallSensorOne()    {
+        return storageBallSensor1.get();
     }
     public boolean getBallSensorTwo()    {
+        return storageBallSensor2.get();
     }
     public boolean getBallSensorThree()  {
+        return storageBallSensor3.get();
     }
     public boolean getBallSensorFour()   {
+        return storageBallSensor4.get();
     }
     public boolean getBallSensorFive()   {
-
+        return storageBallSensor5.get();
     }
 
 }
