@@ -143,6 +143,14 @@ loadMotor.setInverted(false);
         return flywheelMotor.getSelectedSensorPosition();
     }
 
+    public void moveFlywheel(double power){
+        flywheelMotor.set(power);
+    }
+
+    public void stopFlywheel(){
+        hoodMotor.set(0);
+    }
+
     /*     Turret Subsystems     */
 
     public int getTurretEncoder() {
@@ -173,6 +181,13 @@ loadMotor.setInverted(false);
         return whichLimitSwitchPressed;
     }
 
+    public void moveTurret(double power){
+        turretMotor.set(power);
+    }
+    public void stopTurret(){
+        hoodMotor.set(0); 
+    }
+
     /*     Hood Subsystems     */
 
     public int getHoodEncoder() {
@@ -183,6 +198,14 @@ loadMotor.setInverted(false);
         ///////////////////////////////////////////////////////      NEEDS TUNING
         double angle = (getHoodEncoder())*HoodConversion;
         return angle;
+    }
+
+    public void moveHood(double power){
+        hoodMotor.set(power); 
+    }
+
+    public void stopHood(){
+        hoodMotor.set(0); 
     }
 }
 
