@@ -144,6 +144,23 @@ loadMotor.setInverted(false);
     }
 
     public void moveFlywheel(double power) {
+
+        if(checkTurretLimitSwitches() == "left") {
+            if(power <= 0) {
+                power = 0;
+            }
+        }
+
+        if(checkTurretLimitSwitches() == "right") {
+            if(power >= 0) {
+                power = 0;
+            }
+        }
+    
+        if(checkTurretLimitSwitches() == "both") {
+            power = 0;
+        }
+
         flywheelMotor.set(power);
     }
 
@@ -182,8 +199,26 @@ loadMotor.setInverted(false);
     }
 
     public void moveTurret(double power) {
+
+        if(checkTurretLimitSwitches() == "left") {
+            if(power <= 0) {
+                power = 0;
+            }
+        }
+
+        if(checkTurretLimitSwitches() == "right") {
+            if(power >= 0) {
+                power = 0;
+            }
+        }
+    
+        if(checkTurretLimitSwitches() == "both") {
+            power = 0;
+        }
+
         turretMotor.set(power);
     }
+    
     public void stopTurret() {
         hoodMotor.set(0); 
     }
@@ -201,6 +236,23 @@ loadMotor.setInverted(false);
     }
 
     public void moveHood(double power) {
+
+        if(checkTurretLimitSwitches() == "left") {
+            if(power <= 0) {
+                power = 0;
+            }
+        }
+
+        if(checkTurretLimitSwitches() == "right") {
+            if(power >= 0) {
+                power = 0;
+            }
+        }
+    
+        if(checkTurretLimitSwitches() == "both") {
+            power = 0;
+        }
+        
         hoodMotor.set(power); 
     }
 
