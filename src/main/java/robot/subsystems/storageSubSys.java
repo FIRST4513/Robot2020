@@ -105,19 +105,33 @@ addChild("storageBallSensor5",storageBallSensor5);
     // here. Call these from Commands.
 
 
-//-------------StaorageMethods-----------//
+//-------------StorageMethods-----------//
 
     public boolean getBallSensorOne()    {
+        return storageBallSensor1.get();
     }
     public boolean getBallSensorTwo()    {
+        return storageBallSensor2.get();
     }
     public boolean getBallSensorThree()  {
+        return storageBallSensor3.get();
     }
     public boolean getBallSensorFour()   {
+        return storageBallSensor4.get();
     }
     public boolean getBallSensorFive()   {
-
+        return storageBallSensor5.get();
     }
+
+    public void moveBottomRollers(double power) {
+        storageBottomRollerMotor.set(power);
+    }
+
+    public void moveEjectMotor(double power) {
+        storageEjectMotor.set(power);
+    }
+ 
+    
 
 }
 
