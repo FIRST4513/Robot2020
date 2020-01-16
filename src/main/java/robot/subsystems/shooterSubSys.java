@@ -143,11 +143,28 @@ loadMotor.setInverted(false);
         return flywheelMotor.getSelectedSensorPosition();
     }
 
-    public void moveFlywheel(double power){
+    public void moveFlywheel(double power) {
+
+        if(checkTurretLimitSwitches() == "left") {
+            if(power <= 0) {
+                power = 0;
+            }
+        }
+
+        if(checkTurretLimitSwitches() == "right") {
+            if(power >= 0) {
+                power = 0;
+            }
+        }
+    
+        if(checkTurretLimitSwitches() == "both") {
+            power = 0;
+        }
+
         flywheelMotor.set(power);
     }
 
-    public void stopFlywheel(){
+    public void stopFlywheel() {
         hoodMotor.set(0);
     }
 
@@ -181,10 +198,28 @@ loadMotor.setInverted(false);
         return whichLimitSwitchPressed;
     }
 
-    public void moveTurret(double power){
+    public void moveTurret(double power) {
+
+        if(checkTurretLimitSwitches() == "left") {
+            if(power <= 0) {
+                power = 0;
+            }
+        }
+
+        if(checkTurretLimitSwitches() == "right") {
+            if(power >= 0) {
+                power = 0;
+            }
+        }
+    
+        if(checkTurretLimitSwitches() == "both") {
+            power = 0;
+        }
+
         turretMotor.set(power);
     }
-    public void stopTurret(){
+    
+    public void stopTurret() {
         hoodMotor.set(0); 
     }
 
@@ -200,11 +235,28 @@ loadMotor.setInverted(false);
         return angle;
     }
 
-    public void moveHood(double power){
+    public void moveHood(double power) {
+
+        if(checkTurretLimitSwitches() == "left") {
+            if(power <= 0) {
+                power = 0;
+            }
+        }
+
+        if(checkTurretLimitSwitches() == "right") {
+            if(power >= 0) {
+                power = 0;
+            }
+        }
+    
+        if(checkTurretLimitSwitches() == "both") {
+            power = 0;
+        }
+        
         hoodMotor.set(power); 
     }
 
-    public void stopHood(){
+    public void stopHood() {
         hoodMotor.set(0); 
     }
 }

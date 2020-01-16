@@ -130,8 +130,5 @@ addChild("storageBallSensor5",storageBallSensor5);
     public void moveEjectMotor(double power) {
         storageEjectMotor.set(power);
     }
- 
-    
-
 }
 
