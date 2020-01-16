@@ -84,6 +84,23 @@ addChild("contactLimitSwitch",contactLimitSwitch);
 
     // Put methods for controlling this subsystem
     // here. Call these from Commands.
-
+    public boolean getContactSwitch(){
+        return contactLimitSwitch.get();
+    }
+    public void spinnerTurn(double speed){
+        spinnerWheelMotor.set(speed);
+    }
+    public void spinnerStop(){
+        spinnerWheelMotor.set(0);
+    }
+    public void spinnerExtend(){
+        extendRetractValve.set(Value.kForward);
+    }
+    public void spinnerRetract(){
+        extendRetractValve.set(Value.kReverse);
+    }
+    public void valveStop(){
+        extendRetractValve.set(Value.kOff);
+    }
 }
 
