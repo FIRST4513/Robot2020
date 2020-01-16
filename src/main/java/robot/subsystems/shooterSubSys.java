@@ -143,11 +143,11 @@ loadMotor.setInverted(false);
         return flywheelMotor.getSelectedSensorPosition();
     }
 
-    public void moveFlywheel(double power){
+    public void moveFlywheel(double power) {
         flywheelMotor.set(power);
     }
 
-    public void stopFlywheel(){
+    public void stopFlywheel() {
         hoodMotor.set(0);
     }
 
@@ -181,10 +181,10 @@ loadMotor.setInverted(false);
         return whichLimitSwitchPressed;
     }
 
-    public void moveTurret(double power){
+    public void moveTurret(double power) {
         turretMotor.set(power);
     }
-    public void stopTurret(){
+    public void stopTurret() {
         hoodMotor.set(0); 
     }
 
@@ -200,11 +200,11 @@ loadMotor.setInverted(false);
         return angle;
     }
 
-    public void moveHood(double power){
+    public void moveHood(double power) {
         hoodMotor.set(power); 
     }
 
-    public void stopHood(){
+    public void stopHood() {
         hoodMotor.set(0); 
     }
 }
