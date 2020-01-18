@@ -14,6 +14,7 @@ import edu.wpi.first.wpilibj.command.Command;
 import robot.OI;
 import robot.Robot;
 import robot.subsystems.shooterSubSys;
+import robot.subsystems.shooterSubSys.TurretSwitchPressed;
 
 /**
  *
@@ -50,11 +51,11 @@ public class shooterAimByJoystickCmd extends Command {
     @Override
     protected void execute() {
         if(joyTrigger == true) {
-            if(Robot.shooterSubSys.checkTurretLimitSwitches() == "neither") {
+            if(Robot.shooterSubSys.checkTurretLimitSwitches() == TurretSwitchPressed.NEITHER) {
                 Robot.shooterSubSys.moveTurret((joyTwist * ((joyThrottle + 1)/2)));
             }
 
-            if(Robot.shooterSubSys.checkTurretLimitSwitches() == "left") {
+            if(Robot.shooterSubSys.checkTurretLimitSwitches() == TurretSwitchPressed.LEFT) {
                 if(joyTwist <= 0) {
                     Robot.shooterSubSys.stopTurret();
                 } else {
@@ -62,18 +63,13 @@ public class shooterAimByJoystickCmd extends Command {
                 }
             }
 
-            if(Robot.shooterSubSys.checkTurretLimitSwitches() == "right") {
+            if(Robot.shooterSubSys.checkTurretLimitSwitches() == TurretSwitchPressed.RIGHT) {
                 if(joyTwist >= 0) {
                     Robot.shooterSubSys.stopTurret();
                 } else {
                     Robot.shooterSubSys.moveTurret((joyTwist * ((joyThrottle + 1)/2)));
                 }
             }
-
-            if(Robot.shooterSubSys.checkTurretLimitSwitches() == "both") {
-                Robot.shooterSubSys.stopTurret();
-            }
-            
         }
     }
 
