@@ -103,26 +103,27 @@ addChild("storageBallSensor5",storageBallSensor5);
 
     // Put methods for controlling this subsystem
     // here. Call these from Commands.
+    
+    // Ball Storage Sensor Checks
 
-
-//-------------StorageMethods-----------//
-
-    public boolean getBallSensorOne()    {
+    public boolean getBallSensorOne() {
         return storageBallSensor1.get();
     }
-    public boolean getBallSensorTwo()    {
+    public boolean getBallSensorTwo() {
         return storageBallSensor2.get();
     }
-    public boolean getBallSensorThree()  {
+    public boolean getBallSensorThree() {
         return storageBallSensor3.get();
     }
-    public boolean getBallSensorFour()   {
+    public boolean getBallSensorFour() {
         return storageBallSensor4.get();
     }
-    public boolean getBallSensorFive()   {
+    public boolean getBallSensorFive() {
         return storageBallSensor5.get();
     }
 
+    // Set Motor Methods
+    
     public void moveBottomRollers(double power) {
         storageBottomRollerMotor.set(power);
     }
