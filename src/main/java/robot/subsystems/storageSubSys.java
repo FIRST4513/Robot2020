@@ -123,9 +123,16 @@ addChild("storageBallSensor5",storageBallSensor5);
     }
 
     /*     Motor Methods     */
+    public void stopBottomRollers() {
+        storageBottomRollerMotor.set(0);
+    }
 
     public void moveBottomRollers(double power) {
         storageBottomRollerMotor.set(power);
+    }
+
+    public void stopEjectMotor() {
+        storageEjectMotor.set(0);
     }
 
     public void moveEjectMotor(double power) {
