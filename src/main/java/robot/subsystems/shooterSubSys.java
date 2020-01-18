@@ -42,11 +42,11 @@ public class shooterSubSys extends Subsystem {
     private static final double HoodConversion = 0.3; // Needs tuning
     private static final double TurretConversion = 0.3; // Needs tuning
 
-    private enum TurretSwitchPressed {
+    public enum TurretSwitchPressed {
         NEITHER, LEFT, RIGHT;
     }
 
-    private enum HoodSwitchPressed {
+    public enum HoodSwitchPressed {
         NEITHER, RETRACTED, EXTENDED
     }
 
