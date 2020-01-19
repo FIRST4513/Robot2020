@@ -117,6 +117,18 @@ addChild("storageBallSensor5",storageBallSensor5);
 
         return ballDetected;
     }
+    
+    public int getBallCount() {
+        int numberOfBalls = 0;
+        
+        for (DigitalInput ballSensor : ballSensors) {
+            if (ballSensor.get() == true) {
+                numberOfBalls++;
+            }
+        }
+        
+        return numberOfBalls;
+    }
 
     /*     Motor Methods     */
     public void stopBottomRollers() {
