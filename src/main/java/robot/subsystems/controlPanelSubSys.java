@@ -52,7 +52,7 @@ extendRetractValve = new DoubleSolenoid(0, 3, 4);
 addChild("extendRetractValve",extendRetractValve);
 
         
-contactLimitSwitch = new DigitalInput(14);
+contactLimitSwitch = new DigitalInput(11);
 addChild("contactLimitSwitch",contactLimitSwitch);
 
         

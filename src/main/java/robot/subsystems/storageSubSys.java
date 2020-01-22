@@ -50,7 +50,7 @@ storageBottomRollerMotor = new WPI_TalonSRX(0);
 
 
         
-storageEjectMotor = new WPI_TalonSRX(3);
+storageEjectMotor = new WPI_TalonSRX(5);
 
 
         
