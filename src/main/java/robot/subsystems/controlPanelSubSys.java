@@ -128,15 +128,15 @@ addChild("contactLimitSwitch",contactLimitSwitch);
     }
 
     public void spinnerExtend() {
-        extendRetractValve.set(Value.kForward);
+        extendRetractValve.set(DoubleSolenoid.Value.kForward);
     }
 
     public void spinnerRetract() {
-        extendRetractValve.set(Value.kReverse);
+        extendRetractValve.set(DoubleSolenoid.Value.kReverse);
     }
 
     public void valveStop() {
-        extendRetractValve.set(Value.kOff);
+        extendRetractValve.set(DoubleSolenoid.Value.kOff);
     }
 
     private double[] readColor() {
