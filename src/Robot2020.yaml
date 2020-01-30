@@ -260,6 +260,36 @@ Children:
   - Children:
     - Children: []
       Properties:
+        Forward PCM (Solenoid): !!robotbuilder.data.properties.ChoicesProperty
+          choices: ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11',
+            '12', '13', '14', '15', '16', '17', '18', '19', '20']
+          default: '0'
+          name: Forward PCM (Solenoid)
+          validators: [Solenoid]
+          value: '0'
+        Reverse PCM (Solenoid): !!robotbuilder.data.properties.ChoicesProperty
+          choices: ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11',
+            '12', '13', '14', '15', '16', '17', '18', '19', '20']
+          default: '0'
+          name: Reverse PCM (Solenoid)
+          validators: [Solenoid]
+          value: '0'
+        Reverse Channel (Solenoid): !!robotbuilder.data.properties.ChoicesProperty
+          choices: ['0', '1', '2', '3', '4', '5', '6', '7']
+          default: '0'
+          name: Reverse Channel (Solenoid)
+          validators: [Solenoid]
+          value: '1'
+        Forward Channel (Solenoid): !!robotbuilder.data.properties.ChoicesProperty
+          choices: ['0', '1', '2', '3', '4', '5', '6', '7']
+          default: '0'
+          name: Forward Channel (Solenoid)
+          validators: [Solenoid]
+          value: '0'
+      Base: Double Solenoid
+      Name: IntakeExtensionValve
+    - Children: []
+      Properties:
         CAN ID: !!robotbuilder.data.properties.ChoicesProperty
           choices: ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11',
             '12', '13', '14', '15', '16', '17', '18', '19', '20', '21', '22', '23',
@@ -628,6 +658,32 @@ Children:
           value: '11'
       Base: Digital Input
       Name: contactLimitSwitch
+    - Children: []
+      Properties:
+        CAN ID: !!robotbuilder.data.properties.ChoicesProperty
+          choices: *id001
+          default: '2'
+          name: CAN ID
+          validators: *id002
+          value: '10'
+      Base: Talon SRX
+      Name: spinnerWheelMotor
+    - Children: []
+      Properties:
+        Output Channel (Solenoid): !!robotbuilder.data.properties.ChoicesProperty
+          choices: *id016
+          default: '0'
+          name: Output Channel (Solenoid)
+          validators: *id017
+          value: '2'
+        Output PCM (Solenoid): !!robotbuilder.data.properties.ChoicesProperty
+          choices: *id018
+          default: '0'
+          name: Output PCM (Solenoid)
+          validators: *id019
+          value: '0'
+      Base: Solenoid
+      Name: extendRetractValve
     Properties:
       Send to SmartDashboard: !!robotbuilder.data.properties.BooleanProperty {default: false,
         name: Send to SmartDashboard, validators: null, value: false}
@@ -784,7 +840,7 @@ Children:
           validators: null
           value: whenPressed
       Base: Joystick Button
-      Name: climbActivateBrakeBtn
+      Name: colorWheelThreeRotateBtn
     - Children: []
       Properties:
         Joystick: !!robotbuilder.data.properties.ParentProperty {default: parent,
@@ -795,7 +851,7 @@ Children:
           validators: null
           value: []
         Button: !!robotbuilder.data.properties.ChoicesProperty
-          choices: *id023
+          choices: *id020
           default: '1'
           name: Button
           validators: null
@@ -837,6 +893,10 @@ Children:
           value: climbByJoystickCmd
         When to Run: !!robotbuilder.data.properties.ChoicesProperty
           choices: *id025
+          validators: *id021
+          value: colorWheelLowerCmd
+        When to Run: !!robotbuilder.data.properties.ChoicesProperty
+          choices: *id022
           default: whileHeld
           name: When to Run
           validators: null
@@ -849,6 +909,13 @@ Children:
         default: 1
         name: Number
         validators: *id027
+      Name: colorWheelLowerBtn
+    Properties:
+      Number: !!robotbuilder.data.properties.ChoicesProperty
+        choices: *id023
+        default: 1
+        name: Number
+        validators: *id024
         value: '1'
     Base: Joystick
     Name: coDriverJoystick
