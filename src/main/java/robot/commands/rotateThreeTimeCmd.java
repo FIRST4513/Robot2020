@@ -44,10 +44,11 @@ public class rotateThreeTimeCmd extends Command {
     // Called just before this Command runs the first time
     @Override
     protected void initialize() {
-        if (Robot.controlPanelSubSys.getContactSwitch()== false){
+       /* if (Robot.controlPanelSubSys.getContactSwitch()== false){
             state = State.NOCONTACT;
             return;
         }
+        */
         lastColor = Robot.controlPanelSubSys.getSensorColor();
         currentColor = lastColor;
         state = State.SAME;
@@ -56,7 +57,7 @@ public class rotateThreeTimeCmd extends Command {
     // Called repeatedly when this Command is scheduled to run
     @Override
     protected void execute() {
-        if (Robot.controlPanelSubSys.getContactSwitch()== false){
+      /*  if (Robot.controlPanelSubSys.getContactSwitch()== false){
             state = State.NOCONTACT;
             return;
         }
@@ -65,7 +66,7 @@ public class rotateThreeTimeCmd extends Command {
             lastColor = Robot.controlPanelSubSys.getSensorColor();
             currentColor = lastColor;
         }
-        
+        */
         currentColor = Robot.controlPanelSubSys.getSensorColor();
         if (currentColor == lastColor){
             state = State.SAME;
