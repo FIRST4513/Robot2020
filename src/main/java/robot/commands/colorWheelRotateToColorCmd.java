@@ -47,9 +47,9 @@ public class colorWheelRotateToColorCmd extends Command {
     @Override
     protected void initialize() {
         //Robot.controlPanelSubSys.spinnerExtend();
+        targetColor = Robot.controlPanelSubSys.getRequiredColor();
         currentColor = Robot.controlPanelSubSys.getSensorColor();
         lastColor = currentColor;
-        String targetColor = Robot.controlPanelSubSys.getRequiredColor();
     }
 
     // Called repeatedly when this Command is scheduled to run
@@ -59,14 +59,13 @@ public class colorWheelRotateToColorCmd extends Command {
         if (currentColor != targetColor){
             Robot.controlPanelSubSys.spinnerTurn(ROTATESPEED);
         } else {
-            Robot.controlPanelSubSys.spinnerTurn(ROTATESPEED);
+            Robot.controlPanelSubSys.spinnerStop();
         }
     }
 
     // Make this return true when this Command no longer needs to run execute()
     @Override
     protected boolean isFinished() {
-
         if (currentColor == targetColor)
             return true;
 
