@@ -99,7 +99,6 @@ shooterAimByJoystickBtn.whileHeld(new shooterAimByJoystickCmd());
 driverJoystick = new Joystick(0);
 
 shooterByJoystickBtn = new JoystickButton(driverJoystick, 3);
-shooterByJoystickBtn.whileHeld(new shooterTestDriveCmd());
 
 
         // SmartDashboard Buttons
@@ -128,7 +127,6 @@ shooterByJoystickBtn.whileHeld(new shooterTestDriveCmd());
         SmartDashboard.putData("ResetGyroCmd", new ResetGyroCmd());
         SmartDashboard.putData("ResetEncodersCmd", new ResetEncodersCmd());
         SmartDashboard.putData("Reset_Robot_Pos_Cmd", new Reset_Robot_Pos_Cmd());
-        SmartDashboard.putData("shooterTestDriveCmd", new shooterTestDriveCmd());
         SmartDashboard.putData("climbReleaseBrakeCmd", new climbReleaseBrakeCmd());
         SmartDashboard.putData("climbActivateBrakeCmd", new climbActivateBrakeCmd());
         SmartDashboard.putData("shooterTestMotorStopCmd", new shooterTestMotorStopCmd());
