@@ -709,7 +709,7 @@ Children:
           name: Command
           type: Command
           validators: *id021
-          value: rotateThreeTimeCmd
+          value: colorWheelThreeRotateCmdGrp
         When to Run: !!robotbuilder.data.properties.ChoicesProperty
           choices: *id022
           default: whileHeld
@@ -738,7 +738,7 @@ Children:
           name: Command
           type: Command
           validators: *id021
-          value: RotateToColorCmd
+          value: colorWheelRotateToColorCmd
         When to Run: !!robotbuilder.data.properties.ChoicesProperty
           choices: *id022
           default: whileHeld
@@ -1283,7 +1283,7 @@ Children:
       Button on SmartDashboard: !!robotbuilder.data.properties.BooleanProperty {default: true,
         name: Button on SmartDashboard, validators: null, value: true}
     Base: Command
-    Name: rotateThreeTimeCmd
+    Name: colorWheelRotateThreeTimeCmd
   - Children: []
     Properties:
       Autonomous Selection: !!robotbuilder.data.properties.BooleanProperty {default: false,
@@ -1374,7 +1374,7 @@ Children:
       Button on SmartDashboard: !!robotbuilder.data.properties.BooleanProperty {default: true,
         name: Button on SmartDashboard, validators: null, value: true}
     Base: Command
-    Name: RotateToColorCmd
+    Name: colorWheelRotateToColorCmd
   Properties: {}
   Base: Commands
   Name: Commands
