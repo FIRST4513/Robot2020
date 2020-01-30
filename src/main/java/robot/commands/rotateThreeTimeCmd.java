@@ -37,8 +37,8 @@ public class rotateThreeTimeCmd extends Command {
         enum State {NOCONTACT,SAME,CHANGE,DONE};
         State state = State.SAME;
         double changeCount = 0;
-       final double MAXCOUNT = 25;
-       final double ROTATESPEED = 0.5;
+       final double MAXCOUNT = 35;
+       final double ROTATESPEED = 0.7;
         String lastColor;
         String currentColor;
     // Called just before this Command runs the first time
@@ -52,6 +52,7 @@ public class rotateThreeTimeCmd extends Command {
         lastColor = Robot.controlPanelSubSys.getSensorColor();
         currentColor = lastColor;
         state = State.SAME;
+        changeCount = 0;        
     }
 
     // Called repeatedly when this Command is scheduled to run
