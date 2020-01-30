@@ -79,7 +79,7 @@ rightFMtr = new WPI_TalonSRX(2);
 
 
         
-rightTMtr = new WPI_TalonSRX(10);
+rightTMtr = new WPI_TalonSRX(25);
 
 
         
