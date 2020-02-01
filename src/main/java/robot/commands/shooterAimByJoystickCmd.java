@@ -12,6 +12,8 @@
 package robot.commands;
 import edu.wpi.first.wpilibj.command.Command;
 import robot.Robot;
+import robot.subsystems.shooterSubSys.HoodSwitchPressed;
+import robot.subsystems.shooterSubSys.TurretSwitchPressed;
 
 /**
  *
@@ -43,6 +45,52 @@ public class shooterAimByJoystickCmd extends Command {
     // Called repeatedly when this Command is scheduled to run
     @Override
     protected void execute() {
+        double joyTwist = Robot.oi.getcoDriverJoystick().getTwist();
+        double joyThrottle = Robot.oi.getcoDriverJoystick().getThrottle();
+        double joyY = Robot.oi.getcoDriverJoystick().getY();
+        boolean buttonPressed = Robot.oi.getcoDriverJoystick().getRawButton(11);
+
+        if(buttonPressed == true) {
+            if(Robot.shooterSubSys.checkTurretLimitSwitches() == TurretSwitchPressed.NEITHER) {
+                Robot.shooterSubSys.moveTurret((joyTwist * ((joyThrottle + 1)/2)));
+            }
+
+            if(Robot.shooterSubSys.checkTurretLimitSwitches() == TurretSwitchPressed.LEFT) {
+                if(joyTwist <= 0) {
+                    Robot.shooterSubSys.stopTurret();
+                } else {
+                    Robot.shooterSubSys.moveTurret((joyTwist * ((joyThrottle + 1)/2)));
+                }
+            }
+
+            if(Robot.shooterSubSys.checkTurretLimitSwitches() == TurretSwitchPressed.RIGHT) {
+                if(joyTwist >= 0) {
+                    Robot.shooterSubSys.stopTurret();
+                } else {
+                    Robot.shooterSubSys.moveTurret((joyTwist * ((joyThrottle + 1)/2)));
+                }
+            }
+
+            if(Robot.shooterSubSys.checkHoodLimitSwitches() == HoodSwitchPressed.NEITHER) {
+                Robot.shooterSubSys.moveHood((joyY * ((joyThrottle + 1)/2)));
+            }
+
+            if(Robot.shooterSubSys.checkHoodLimitSwitches() == HoodSwitchPressed.RETRACTED) {
+                if(joyY <= 0) {
+                    Robot.shooterSubSys.stopHood();
+                } else {
+                    Robot.shooterSubSys.moveHood((joyY * ((joyThrottle + 1)/2)));
+                }
+            }
+
+            if(Robot.shooterSubSys.checkHoodLimitSwitches() == HoodSwitchPressed.EXTENDED) {
+                if(joyY >= 0) {
+                    Robot.shooterSubSys.stopHood();
+                } else {
+                    Robot.shooterSubSys.moveHood((joyY * ((joyThrottle + 1)/2)));
+                }
+            }
+        }
     }
 
     // Make this return true when this Command no longer needs to run execute()
@@ -54,11 +102,14 @@ public class shooterAimByJoystickCmd extends Command {
     // Called once after isFinished returns true
     @Override
     protected void end() {
+        Robot.shooterSubSys.stopTurret();
+        Robot.shooterSubSys.stopHood();
     }
 
     // Called when another command which requires one or more of the same
     // subsystems is scheduled to run
     @Override
     protected void interrupted() {
+        end();
     }
 }
