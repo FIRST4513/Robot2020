@@ -47,9 +47,9 @@ public class shooterTestDriveCmd extends Command {
     protected void execute() {
         double currentSpeed = joy.getY();
         if (joy.getRawButton(3) == false){
-            Robot.shooterSubSys.shooterMotorOff();
+            Robot.shooterSubSys.stopFlywheels();
         } else {
-            Robot.shooterSubSys.shooterMotorOn(currentSpeed);
+            Robot.shooterSubSys.moveFlywheels(currentSpeed);
         }
     }
 
@@ -62,7 +62,7 @@ public class shooterTestDriveCmd extends Command {
     // Called once after isFinished returns true
     @Override
     protected void end() {
-        Robot.shooterSubSys.shooterMotorOff();
+        Robot.shooterSubSys.stopFlywheels();
     }
 
     // Called when another command which requires one or more of the same

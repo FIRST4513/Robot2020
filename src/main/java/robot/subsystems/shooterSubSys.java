@@ -46,6 +46,8 @@ public class shooterSubSys extends Subsystem {
     private static final double HoodConversion = 0.3; //Need tuning!
     private static final double TurretConversion = 0.3; //Need tuning!
 
+    private static final double HandoffEjectionPower = 0.7; //Need tuning!
+
     private static final int deviceID = 13;
     private CANSparkMax flywheelLeftMotor;
     private CANSparkMax flywheelRightMotor;
@@ -202,12 +204,31 @@ handoffMotor = new WPI_TalonSRX(6);
         hoodEncoder.reset();
     }
 
+    public void resetTurretEncoder() {
+        turretEncoder.reset();
+    }
+
+    public void resetHoodEncoder() {
+        hoodEncoder.reset();
+    }
+
+    /*     Handoff Methods     */
+
+    public void stopHandoff() {
+        handoffMotor.set(0);
+        handoffPower = 0;
+    }
+
+    public void startHandoff() {
+        handoffMotor.set(HandoffEjectionPower);
+        handoffPower = HandoffEjectionPower;
+    }
+
     /*     Flywheel Methods     */
 
     public void stopFlywheels() {
         flywheelLeftMotor.set(0);
         flywheelRightMotor.set(0);
-
         flywheelPower = 0;
     }
 
@@ -235,8 +256,7 @@ handoffMotor = new WPI_TalonSRX(6);
 
     public double getTurretAngle() {
          // Turret conversion not tuned.
-        double angle = getTurretEncoder() * TurretConversion;
-        return angle;
+        return getTurretEncoder() * TurretConversion;
     }
 
 
@@ -257,6 +277,7 @@ handoffMotor = new WPI_TalonSRX(6);
             case LEFT:
                 if (power <= 0) {
                     stopTurret();
+                    resetTurretEncoder();
                 }
             case RIGHT:
                 if (power >= 0) {
@@ -295,9 +316,8 @@ handoffMotor = new WPI_TalonSRX(6);
     }
 
     public double getHoodAngle() {
-        // HoodConversion isn't tuned.
-        double angle = getHoodEncoder() * HoodConversion;
-        return angle;
+        // HoodConversion isn't tuned. 
+        return getHoodEncoder() * HoodConversion;
     }
 
     public void moveHood(double power) {
@@ -305,6 +325,7 @@ handoffMotor = new WPI_TalonSRX(6);
             case RETRACTED:
                 if (power <= 0) {
                     stopHood();
+                    resetHoodEncoder();
                 }
             case EXTENDED:
                 if (power >= 0) {
@@ -353,8 +374,6 @@ private void updateSmartdash(){
             break;
     }
 
-    SmartDashboard.putNumber("Flywheel RPM", flywheelEncoder.getCountsPerRevolution());
-
     SmartDashboard.putNumber("Turret Angle", getTurretAngle());
     SmartDashboard.putNumber("Hood Angle", getHoodAngle());
     
@@ -366,22 +385,8 @@ private void updateSmartdash(){
 
     SmartDashboard.putNumber("Handoff Power", handoffPower);
 
-    
-    /**
-     * Encoder position is read from a CANEncoder object by calling the
-     * GetPosition() method.
-     * 
-     * GetPosition() returns the position of the encoder in units of revolutions
-     */
-    SmartDashboard.putNumber("Encoder Position", flywheelEncoder.getPosition());
-
-    /**
-     * Encoder velocity is read from a CANEncoder object by calling the
-     * GetVelocity() method.
-     * 
-     * GetVelocity() returns the velocity of the encoder in units of RPM
-     */
-    SmartDashboard.putNumber("Encoder Velocity", flywheelEncoder.getVelocity());
+    SmartDashboard.putNumber("Flywheel Raw Encoder", flywheelEncoder.getPosition());
+    SmartDashboard.putNumber("Flywheel RPM", flywheelEncoder.getVelocity());
     }
 }
 
