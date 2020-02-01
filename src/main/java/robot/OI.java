@@ -118,8 +118,6 @@ shooterByJoystickBtn.whileHeld(new shooterTestDriveCmd());
         SmartDashboard.putData("intakeRollerMotorRetractCmd", new intakeRollerMotorRetractCmd());
         SmartDashboard.putData("intakeRollerMotorStopCmd", new intakeRollerMotorStopCmd());
         SmartDashboard.putData("intakeCaptureOffCmdGrp", new intakeCaptureOffCmdGrp());
-        SmartDashboard.putData("storageHoldCmd", new storageHoldCmd());
-        SmartDashboard.putData("storageEjectCmd", new storageEjectCmd());
         SmartDashboard.putData("udpStartServerCmd", new udpStartServerCmd());
         SmartDashboard.putData("udpStopServerCmd", new udpStopServerCmd());
         SmartDashboard.putData("cameraACmdGrp", new cameraACmdGrp());
