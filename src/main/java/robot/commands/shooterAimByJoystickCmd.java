@@ -71,25 +71,10 @@ public class shooterAimByJoystickCmd extends Command {
                 }
             }
 
-            if(Robot.shooterSubSys.checkHoodLimitSwitches() == HoodSwitchPressed.NEITHER) {
-                Robot.shooterSubSys.moveHood((joyY * ((joyThrottle + 1)/2)));
-            }
-
-            if(Robot.shooterSubSys.checkHoodLimitSwitches() == HoodSwitchPressed.RETRACTED) {
-                if(joyY <= 0) {
-                    Robot.shooterSubSys.stopHood();
-                } else {
-                    Robot.shooterSubSys.moveHood((joyY * ((joyThrottle + 1)/2)));
-                }
-            }
-
-            if(Robot.shooterSubSys.checkHoodLimitSwitches() == HoodSwitchPressed.EXTENDED) {
-                if(joyY >= 0) {
-                    Robot.shooterSubSys.stopHood();
-                } else {
-                    Robot.shooterSubSys.moveHood((joyY * ((joyThrottle + 1)/2)));
-                }
-            }
+            // Move hood by joystick
+            double power = joyY * ((joyThrottle + 1)/2);
+            power = Robot.shooterSubSys.linearizeHoodPower(power, 0.1); // Hardcoded deadband 0.1
+            Robot.shooterSubSys.moveHood(power);
         }
     }
 
