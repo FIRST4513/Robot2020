@@ -10,7 +10,7 @@
         "hgap": 16.0,
         "vgap": 8.0,
         "tiles": {
-          "6,0": {
+          "13,0": {
             "size": [
               4,
               2
@@ -21,7 +21,7 @@
               "_title": "First-Choice"
             }
           },
-          "0,0": {
+          "7,0": {
             "size": [
               6,
               2
@@ -32,32 +32,10 @@
               "_title": "Location-Choice"
             }
           },
-          "6,3": {
-            "size": [
-              4,
-              2
-            ],
-            "content": {
-              "_type": "ComboBox Chooser",
-              "_source0": "network_table:///SmartDashboard/Rocket-Choice",
-              "_title": "SmartDashboard/Rocket-Choice"
-            }
-          },
-          "10,0": {
-            "size": [
-              4,
-              2
-            ],
-            "content": {
-              "_type": "ComboBox Chooser",
-              "_source0": "network_table:///SmartDashboard/Single/Dual Hatch",
-              "_title": "SmartDashboard/Single/Dual Hatch"
-            }
-          },
-          "11,7": {
+          "17,0": {
             "size": [
               3,
-              1
+              2
             ],
             "content": {
               "_type": "Command",
@@ -757,7 +735,7 @@
       }
     },
     {
-      "title": "Elev",
+      "title": "Climber",
       "autoPopulate": false,
       "autoPopulatePrefix": "",
       "widgetPane": {
@@ -766,103 +744,94 @@
         "hgap": 16.0,
         "vgap": 16.0,
         "tiles": {
-          "7,0": {
+          "10,2": {
             "size": [
-              3,
+              4,
               2
             ],
             "content": {
               "_type": "Text View",
-              "_source0": "network_table:///SmartDashboard/elev_CurrPwr",
-              "_title": "CurrPwr"
+              "_source0": "network_table:///SmartDashboard/Current Brake Status",
+              "_title": "SmartDashboard/Current Brake Status"
             }
           },
-          "7,2": {
+          "14,2": {
             "size": [
               3,
               2
             ],
             "content": {
               "_type": "Text View",
-              "_source0": "network_table:///SmartDashboard/elev_Encoder",
-              "_title": "Encoder Raw"
+              "_source0": "network_table:///SmartDashboard/Current Height Value",
+              "_title": "SmartDashboard/Current Height Value"
             }
           },
-          "0,5": {
+          "17,2": {
             "size": [
               3,
               2
             ],
             "content": {
               "_type": "Text View",
-              "_source0": "network_table:///SmartDashboard/elev_LowerLmtSw",
-              "_title": "Lower Switch"
+              "_source0": "network_table:///SmartDashboard/Current Pot Value",
+              "_title": "SmartDashboard/Current Pot Value"
             }
           },
-          "3,5": {
+          "20,2": {
             "size": [
               3,
               2
             ],
             "content": {
               "_type": "Text View",
-              "_source0": "network_table:///SmartDashboard/elev_LowerLmtSw1",
-              "_title": "Lower LmtSw 1"
+              "_source0": "network_table:///SmartDashboard/Current Power Value",
+              "_title": "SmartDashboard/Current Power Value"
             }
           },
-          "3,7": {
+          "10,4": {
             "size": [
-              3,
-              2
+              4,
+              3
             ],
             "content": {
-              "_type": "Text View",
-              "_source0": "network_table:///SmartDashboard/elev_LowerLmtSw2",
-              "_title": "Lower LmtSw 2"
+              "_type": "Boolean Box",
+              "_source0": "network_table:///LiveWindow/climberSubSys/BrakeSolenoid/Value",
+              "_title": "LiveWindow/climberSubSys/BrakeSolenoid/Value",
+              "Colors/Color when true": "#7CFC00FF",
+              "Colors/Color when false": "#8B0000FF"
             }
           },
-          "7,4": {
+          "15,5": {
             "size": [
-              3,
+              4,
               2
             ],
             "content": {
-              "_type": "Text View",
-              "_source0": "network_table:///SmartDashboard/elev_Position",
-              "_title": "Elev Position"
+              "_type": "Command",
+              "_source0": "network_table:///SmartDashboard/climbActivateBrakeCmd",
+              "_title": "SmartDashboard/climbActivateBrakeCmd"
             }
           },
-          "0,0": {
+          "19,5": {
             "size": [
-              3,
+              4,
               2
             ],
             "content": {
-              "_type": "Text View",
-              "_source0": "network_table:///SmartDashboard/elev_UpperLmtSw",
-              "_title": "Upper Switch"
+              "_type": "Command",
+              "_source0": "network_table:///SmartDashboard/climbReleaseBrakeCmd",
+              "_title": "SmartDashboard/climbReleaseBrakeCmd"
             }
           },
-          "3,0": {
+          "10,7": {
             "size": [
-              3,
+              4,
               2
             ],
             "content": {
               "_type": "Text View",
-              "_source0": "network_table:///SmartDashboard/elev_UpperLmtSw1",
-              "_title": "Upper LmtSw 1"
-            }
-          },
-          "3,2": {
-            "size": [
-              3,
-              2
-            ],
-            "content": {
-              "_type": "Text View",
-              "_source0": "network_table:///SmartDashboard/elev_UpperLmtSw2",
-              "_title": "Upper LmtSw 2"
+              "_source0": "network_table:///SmartDashboard/Lower Switch Status",
+              "_title": "SmartDashboard/Lower Switch Status"
             }
           }
         }
@@ -1207,283 +1176,249 @@
         "hgap": 16.0,
         "vgap": 16.0,
         "tiles": {
-          "0,10": {
-            "size": [
-              5,
-              2
-            ],
-            "content": {
-              "_type": "Command",
-              "_source0": "network_table:///SmartDashboard/Test_Intake_LiftValve_Cmd",
-              "_title": "SmartDashboard/Test_Intake_LiftValve_Cmd"
-            }
-          },
-          "10,10": {
-            "size": [
-              5,
-              2
-            ],
-            "content": {
-              "_type": "Command",
-              "_source0": "network_table:///SmartDashboard/Test_GrabberValve_Cmd",
-              "_title": "SmartDashboard/Test_GrabberValve_Cmd"
-            }
-          },
-          "5,10": {
-            "size": [
-              5,
-              2
-            ],
-            "content": {
-              "_type": "Command",
-              "_source0": "network_table:///SmartDashboard/Test_Intake_RollerMtr_Cmd",
-              "_title": "SmartDashboard/Test_Intake_RollerMtr_Cmd"
-            }
-          },
-          "5,0": {
+          "9,3": {
             "size": [
               4,
               2
             ],
             "content": {
-              "_type": "Text View",
-              "_source0": "network_table:///SmartDashboard/Intake_HatchSensor",
-              "_title": "Intake Hatch Sensor"
+              "_type": "Command",
+              "_source0": "network_table:///SmartDashboard/intakeCaptureOffCmdGrp",
+              "_title": "SmartDashboard/intakeCaptureOffCmdGrp"
             }
           },
-          "0,4": {
+          "9,1": {
             "size": [
               4,
-              2
-            ],
-            "content": {
-              "_type": "Text View",
-              "_source0": "network_table:///SmartDashboard/Intake_LiftLoweredSensor",
-              "_title": "Intake Lift Lowered Sensor"
-            }
-          },
-          "0,2": {
-            "size": [
-              4,
-              2
-            ],
-            "content": {
-              "_type": "Text View",
-              "_source0": "network_table:///SmartDashboard/Intake_LiftMidSensor",
-              "_title": "Intake Lift Mid Sensor"
-            }
-          },
-          "10,0": {
-            "size": [
-              4,
-              2
-            ],
-            "content": {
-              "_type": "Text View",
-              "_source0": "network_table:///SmartDashboard/Intake_LiftValveState",
-              "_title": "Intake Lift Valve State"
-            }
-          },
-          "0,0": {
-            "size": [
-              4,
-              2
-            ],
-            "content": {
-              "_type": "Text View",
-              "_source0": "network_table:///SmartDashboard/Intake_RaisedSensor",
-              "_title": "Intake Raised Sensor"
-            }
-          },
-          "16,6": {
-            "size": [
-              5,
-              3
-            ],
-            "content": {
-              "_type": "Speed Controller",
-              "_source0": "network_table:///LiveWindow/Ungrouped/Talon SRX [4]",
-              "_title": "LiveWindow/Ungrouped/Talon SRX [4]",
-              "Visuals/Orientation": "HORIZONTAL"
-            }
-          },
-          "16,3": {
-            "size": [
-              5,
               2
             ],
             "content": {
               "_type": "Command",
-              "_source0": "network_table:///SmartDashboard/Test_Intake_Lift_Lower_CmdGrp",
-              "_title": "SmartDashboard/Test_Intake_Lift_Lower_CmdGrp"
+              "_source0": "network_table:///SmartDashboard/intakeCaptureOnCmdGrp",
+              "_title": "SmartDashboard/intakeCaptureOnCmdGrp"
             }
           },
-          "8,4": {
+          "13,1": {
+            "size": [
+              4,
+              2
+            ],
+            "content": {
+              "_type": "Command",
+              "_source0": "network_table:///SmartDashboard/intakeRollerMotorEjectCmd",
+              "_title": "SmartDashboard/intakeRollerMotorEjectCmd"
+            }
+          },
+          "17,1": {
+            "size": [
+              4,
+              2
+            ],
+            "content": {
+              "_type": "Command",
+              "_source0": "network_table:///SmartDashboard/intakeRollerMotorStopCmd",
+              "_title": "SmartDashboard/intakeRollerMotorStopCmd"
+            }
+          },
+          "17,3": {
+            "size": [
+              4,
+              2
+            ],
+            "content": {
+              "_type": "Command",
+              "_source0": "network_table:///SmartDashboard/intakeValveExtendCmd",
+              "_title": "SmartDashboard/intakeValveExtendCmd"
+            }
+          },
+          "21,1": {
+            "size": [
+              4,
+              2
+            ],
+            "content": {
+              "_type": "Command",
+              "_source0": "network_table:///SmartDashboard/intakeValveRetractCmd",
+              "_title": "SmartDashboard/intakeValveRetractCmd"
+            }
+          },
+          "9,6": {
             "size": [
               5,
               2
             ],
             "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/Intake Roller State",
+              "_title": "SmartDashboard/Intake Roller State"
+            }
+          },
+          "14,6": {
+            "size": [
+              5,
+              2
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/Intake Valve State",
+              "_title": "SmartDashboard/Intake Valve State"
+            }
+          },
+          "13,3": {
+            "size": [
+              4,
+              2
+            ],
+            "content": {
               "_type": "Command",
-              "_source0": "network_table:///SmartDashboard/Test_Intake_RollerLiftValve_Cmd",
-              "_title": "SmartDashboard/Test_Intake_RollerLiftValve_Cmd"
+              "_source0": "network_table:///SmartDashboard/intakeRollerMotorRetractCmd",
+              "_title": "SmartDashboard/intakeRollerMotorRetractCmd"
             }
           }
         }
       }
     },
     {
-      "title": "Manipulator",
+      "title": "Shooter",
       "autoPopulate": false,
       "autoPopulatePrefix": "",
       "widgetPane": {
-        "gridSize": 40.0,
+        "gridSize": 128.0,
+        "showGrid": true,
+        "hgap": 16.0,
+        "vgap": 16.0,
+        "tiles": {}
+      }
+    },
+    {
+      "title": "ColorWheel",
+      "autoPopulate": false,
+      "autoPopulatePrefix": "",
+      "widgetPane": {
+        "gridSize": 128.0,
         "showGrid": true,
         "hgap": 16.0,
         "vgap": 16.0,
         "tiles": {
-          "2,10": {
+          "4,2": {
             "size": [
-              5,
-              2
+              2,
+              1
             ],
             "content": {
               "_type": "Command",
-              "_source0": "network_table:///SmartDashboard/Test_Mani_RotateMtr_Cmd",
-              "_title": "Test_Mani_RotateMtr_Cmd"
-            }
-          },
-          "10,10": {
-            "size": [
-              5,
-              2
-            ],
-            "content": {
-              "_type": "Command",
-              "_source0": "network_table:///SmartDashboard/Test_GrabberValve_Cmd",
-              "_title": "Test_GrabberValve_Cmd"
+              "_source0": "network_table:///SmartDashboard/colorWheelLowerCmd",
+              "_title": "colorWheelLowerCmd"
             }
           },
           "6,2": {
             "size": [
-              4,
-              2
+              2,
+              1
             ],
             "content": {
-              "_type": "Text View",
-              "_source0": "network_table:///SmartDashboard/Mani_CargoSwitch",
-              "_title": "Cargo Detect Switch"
+              "_type": "Command",
+              "_source0": "network_table:///SmartDashboard/colorWheelRaiseCmd",
+              "_title": "colorWheelRaiseCmd"
             }
           },
-          "6,7": {
+          "4,3": {
             "size": [
-              4,
-              2
+              2,
+              1
             ],
             "content": {
-              "_type": "Text View",
-              "_source0": "network_table:///SmartDashboard/Mani_ContactSwitch",
-              "_title": "Wall Contact"
+              "_type": "Command",
+              "_source0": "network_table:///SmartDashboard/colorWheelRotateThreeTimeCmd",
+              "_title": "colorWheelRotateThreeTimeCmd"
             }
           },
-          "1,0": {
+          "6,3": {
             "size": [
-              4,
-              2
+              2,
+              1
             ],
             "content": {
-              "_type": "Text View",
-              "_source0": "network_table:///SmartDashboard/Mani_FlipFwdLmtSW",
-              "_title": "Mani Flip Fwd Lmt SW"
+              "_type": "Command",
+              "_source0": "network_table:///SmartDashboard/colorWheelRotateToColorCmd",
+              "_title": "colorWheelRotateToColorCmd"
             }
           },
-          "1,7": {
+          "4,4": {
             "size": [
-              4,
-              2
+              2,
+              1
             ],
             "content": {
-              "_type": "Text View",
-              "_source0": "network_table:///SmartDashboard/Mani_FlipMtrPotPos",
-              "_title": "Mani FlipMtr Pot Pos"
+              "_type": "Command",
+              "_source0": "network_table:///SmartDashboard/colorWheelThreeRotateCmdGrp",
+              "_title": "colorWheelThreeRotateCmdGrp"
             }
           },
-          "1,5": {
+          "4,0": {
             "size": [
-              4,
-              2
+              2,
+              1
             ],
             "content": {
               "_type": "Text View",
-              "_source0": "network_table:///SmartDashboard/Mani_FlipPotVolt",
-              "_title": "Mani FlipMtr Pot Volt"
+              "_source0": "network_table:///SmartDashboard/ColorWheel State",
+              "_title": "ColorWheel State"
             }
           },
-          "1,2": {
+          "6,1": {
             "size": [
-              4,
-              2
+              1,
+              1
             ],
             "content": {
               "_type": "Text View",
-              "_source0": "network_table:///SmartDashboard/Mani_FlipRearLmtSW",
-              "_title": "Mani Flip Rear Lmt SW"
+              "_source0": "network_table:///SmartDashboard/ColorWheel blue",
+              "_title": "ColorWheel blue"
+            }
+          },
+          "7,1": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/ColorWheel color",
+              "_title": "ColorWheel color"
+            }
+          },
+          "4,1": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/ColorWheel green",
+              "_title": "ColorWheel green"
             }
           },
           "6,0": {
             "size": [
-              4,
-              2
+              2,
+              1
             ],
             "content": {
               "_type": "Text View",
-              "_source0": "network_table:///SmartDashboard/Mani_HatchDetected",
-              "_title": "Mani Hatch Detect Sw"
+              "_source0": "network_table:///SmartDashboard/ColorWheel speed",
+              "_title": "ColorWheel speed"
             }
           },
-          "11,0": {
+          "5,1": {
             "size": [
-              4,
-              2
+              1,
+              1
             ],
             "content": {
               "_type": "Text View",
-              "_source0": "network_table:///SmartDashboard/Mani_HatchGrabberClosedSwitch",
-              "_title": "Mani_HatchGrabber Sw"
-            }
-          },
-          "12,5": {
-            "size": [
-              4,
-              2
-            ],
-            "content": {
-              "_type": "Text View",
-              "_source0": "network_table:///SmartDashboard/Mani_FlipMtrPwr",
-              "_title": "SmartDashboard/Mani_FlipMtrPwr"
-            }
-          },
-          "17,9": {
-            "size": [
-              5,
-              2
-            ],
-            "content": {
-              "_type": "Command",
-              "_source0": "network_table:///SmartDashboard/Test_Mani_RollerMtr_Cmd",
-              "_title": "SmartDashboard/Test_Mani_RollerMtr_Cmd"
-            }
-          },
-          "16,4": {
-            "size": [
-              5,
-              3
-            ],
-            "content": {
-              "_type": "Speed Controller",
-              "_source0": "network_table:///LiveWindow/Ungrouped/Talon SRX [7]",
-              "_title": "LiveWindow/Ungrouped/Talon SRX [7]",
-              "Visuals/Orientation": "HORIZONTAL"
+              "_source0": "network_table:///SmartDashboard/ColorWheel red",
+              "_title": "ColorWheel red"
             }
           }
         }
@@ -1491,9 +1426,9 @@
     }
   ],
   "windowGeometry": {
-    "x": 8.0,
-    "y": 2.0,
-    "width": 1625.0,
-    "height": 818.0
+    "x": -6.5,
+    "y": -6.5,
+    "width": 1933.0,
+    "height": 1053.0
   }
 }
