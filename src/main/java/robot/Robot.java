@@ -42,9 +42,8 @@ public class Robot extends TimedRobot {
     SendableChooser<String> locChooser = new SendableChooser<String>();
     SendableChooser<String> orientChooser = new SendableChooser<String>();
     SendableChooser<String> xBoxLRChooser = new SendableChooser<String>();
-    SendableChooser<String> dualChooser = new SendableChooser<String>();  
-    SendableChooser<String> firstChooser = new SendableChooser<String>(); 
-    SendableChooser<String> rocketChooser = new SendableChooser<String>(); 
+    SendableChooser<String> controllerChooser = new SendableChooser<String>();
+
 
     public static Timer sysTimer = new Timer();
 	String fmsGameData;
@@ -125,22 +124,12 @@ udpSubSys = new udpSubSys();
         xBoxLRChooser.setDefaultOption("1 Right", 	"Right");
         SmartDashboard.putData("xBoxLR-Choice",xBoxLRChooser);
 
-        firstChooser.addOption ("0 Do Nothing", "Nothing");
-        firstChooser.addOption("1 Off Pad Only",	"OffPad"); 
-    	firstChooser.addOption ("2 Rocket Near Hatch", "NearHatch");
-        firstChooser.addOption ("3 Rocket Far Hatch", 	"FarHatch");
-        firstChooser.setDefaultOption ("0 Do Nothing", "Nothing");
-        SmartDashboard.putData ("First-Choice", firstChooser);
+        controllerChooser.addOption ("0 Playstation4", "Playstation");
+        controllerChooser.addOption("1 xBox",	"xBox"); 
+    	controllerChooser.addOption ("2 Joystick", "Joystick");
+        controllerChooser.setDefaultOption ("0 Playstation4", "Playstation");
+        SmartDashboard.putData ("Controller-Choice", controllerChooser);
         
-        rocketChooser.addOption ("0 Left Rocket", 	"Left");
-        rocketChooser.addOption  ("1 Right Rocket",	"Right");
-        rocketChooser.setDefaultOption ("0 Left Rocket", 	"Left");
-    	SmartDashboard.putData("Rocket-Choice",rocketChooser);
-    	    	    	
-    	dualChooser.addOption ("0 Single Hatch",   "SingleHatch");    	
-        dualChooser.addOption  ("1 Dual Hatch", "DualHatch"); 
-        dualChooser.setDefaultOption ("0 Single Hatch",   "SingleHatch");
-    	SmartDashboard.putData ("Single/Dual Hatch",dualChooser);
         userInit();
     }
 
