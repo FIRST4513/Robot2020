@@ -127,12 +127,12 @@ spinnerWheelMotor2.setInverted(false);
     }
 
     public void spinnerTurn(double speed){
-        spinnerWheelMotor2.set(speed);
+        spinnerWheelMotor.set(speed);
         motorSpeed = speed;
     }
 
     public void spinnerStop() {
-        spinnerWheelMotor2.set(0);
+        spinnerWheelMotor.set(0);
     }
 
     public void spinnerExtend() {
