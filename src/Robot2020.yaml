@@ -949,6 +949,16 @@ Children:
         value: '2'
     Base: Joystick
     Name: driverXboxCtlr
+  - Children: []
+    Properties:
+      Number: !!robotbuilder.data.properties.ChoicesProperty
+        choices: *id022
+        default: 1
+        name: Number
+        validators: *id023
+        value: '3'
+    Base: Joystick
+    Name: driverPlaystation
   Properties: {}
   Base: OI
   Name: Operator Interface

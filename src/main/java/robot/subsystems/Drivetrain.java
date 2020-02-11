@@ -70,8 +70,11 @@ private Solenoid gearShiftValve;
     
     private AHRS mAHRS = new AHRS(SPI.Port.kMXP);
 
+    public static enum DriverControllerMode { JOY, XBOX, PLAYSTATION };
+    private XBoxLRMode xBoxLRMode = XBoxLRMode.RIGHT;	// this keeps track of our current drive mode    
+
     public enum XBoxLRMode { LEFT, RIGHT };
-    private XBoxLRMode xBoxLRMode = XBoxLRMode.RIGHT;	// this keeps track of our current drive mode
+    private DriverControllerMode driverControllerMode = DriverControllerMode.PLAYSTATION;	// this keeps track of our current drive mode
 
     // --------- PID Control Elements ----------------
     public enum DriveMode { INIT, TELE, AUTO_ROTATE, AUTO_STRAIGHT, AUTO_PATH, DONE, ATEND };
@@ -602,6 +605,45 @@ addChild("gearShiftValve",gearShiftValve);
     public double getAverageSpeed()			{ return (avgStats.currVel); }
     public double getRunningAverageVelocity() { return (avgStats.runningAvgVelocity); }
 
+    public void setDriveControlXBox(){
+        driverControllerMode = DriverControllerMode.XBOX;
+    }
+
+    public void setDriveControlJoy(){
+        driverControllerMode = DriverControllerMode.JOY;
+    }
+
+    public void setDriveControlPlaystation(){
+        driverControllerMode = DriverControllerMode.PLAYSTATION;
+    }
+
+    public DriverControllerMode getDriverControllerMode(){
+        return driverControllerMode;
+    } 
+
+    public boolean isControllerXbox(){
+        if ( driverControllerMode == DriverControllerMode.XBOX)
+            return true;
+        else
+            return false;
+    }
+    public boolean isControllerJoy(){
+        if ( driverControllerMode == DriverControllerMode.JOY)
+            return true;
+        else
+            return false;
+    }  
+    public boolean isControllerPlay(){
+        if ( driverControllerMode == DriverControllerMode.PLAYSTATION)
+            return true;
+        else
+            return false;
+    } 
+    public void setDriverControllerMode(DriverControllerMode mode){
+        driverControllerMode = mode;
+        return;
+    } 
+
     public void setXBoxLeftMode(){
         xBoxLRMode = XBoxLRMode.LEFT;
     }
@@ -614,6 +656,8 @@ addChild("gearShiftValve",gearShiftValve);
         if (  xBoxLRMode == XBoxLRMode.LEFT) return true;
         return false;
     } 
+
+ 
 
     public boolean isXboxModeRight(){
         if (  xBoxLRMode == XBoxLRMode.RIGHT) return true;

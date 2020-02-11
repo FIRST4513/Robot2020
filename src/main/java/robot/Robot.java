@@ -169,11 +169,21 @@ udpSubSys = new udpSubSys();
         // continue until interrupted by another command, remove
         // this line or comment it out.
         //initPrefs();
+
         String xBoxLRChoice = xBoxLRChooser.getSelected();
         if (xBoxLRChoice.equals("Left"))
-        Robot.drivetrain.setXBoxLeftMode();
-    else
-        Robot.drivetrain.setXBoxRightMode();
+            Robot.drivetrain.setXBoxLeftMode();
+        else
+            Robot.drivetrain.setXBoxRightMode();
+
+        String driverCtlrChoice = controllerChooser.getSelected();
+        if (driverCtlrChoice.equals("Playstation"))
+            Robot.drivetrain.setDriveControlPlaystation();
+        else if (driverCtlrChoice.equals("Joystick"))
+            Robot.drivetrain.setDriveControlJoy();
+        else
+            Robot.drivetrain.setDriveControlXBox();
+
         if (autonomousCommand != null) autonomousCommand.cancel();
     }
 
