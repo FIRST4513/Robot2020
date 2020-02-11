@@ -37,27 +37,42 @@ public class colorWheelRotateThreeTimeCmd extends Command {
         enum State {NOCONTACT,SAME,CHANGE,DONE};
         State state = State.SAME;
         double changeCount = 0;
-       final double MAXCOUNT = 35;
-       final double ROTATESPEED = 0.7;
+        final double MAXCOUNT = 35;
+        final double ROTATESPEED = 0.7;
         String lastColor;
         String currentColor;
+        double rotateCount = 7;
+        String initialColor;
+
+
     // Called just before this Command runs the first time
     @Override
     protected void initialize() {
-       /* if (Robot.controlPanelSubSys.getContactSwitch()== false){
-            state = State.NOCONTACT;
-            return;
+        if (Robot.controlPanelSubSys.getContactSwitch()==false){
+            //state = State.NOCONTACT;
+            //return;
+            end();
         }
-        */
-        lastColor = Robot.controlPanelSubSys.getSensorColor();
+
+        setTimeout(4);
+
+        initialColor = Robot.controlPanelSubSys.getSensorColor();
+        lastColor = initialColor;
         currentColor = lastColor;
         state = State.SAME;
-        changeCount = 0;        
+        changeCount = 0;  
+        rotateCount = 7;
     }
 
     // Called repeatedly when this Command is scheduled to run
     @Override
     protected void execute() {
+        currentColor = Robot.controlPanelSubSys.getSensorColor();
+        Robot.controlPanelSubSys.spinnerTurn(ROTATESPEED);
+        if ( (lastColor == initialColor)&&(currentColor != lastColor) ){
+            rotateCount --;
+        }
+        lastColor = currentColor;
       /*  if (Robot.controlPanelSubSys.getContactSwitch()== false){
             state = State.NOCONTACT;
             return;
@@ -68,6 +83,8 @@ public class colorWheelRotateThreeTimeCmd extends Command {
             currentColor = lastColor;
         }
         */
+
+        /*
         currentColor = Robot.controlPanelSubSys.getSensorColor();
         if (currentColor == lastColor){
             state = State.SAME;
@@ -82,15 +99,26 @@ public class colorWheelRotateThreeTimeCmd extends Command {
             return;
         }
         Robot.controlPanelSubSys.spinnerTurn(ROTATESPEED);
+        */
     }
 
     // Make this return true when this Command no longer needs to run execute()
     @Override
     protected boolean isFinished() {
-        if(state == State.DONE){
+        if(rotateCount <= 0){
+            Robot.controlPanelSubSys.spinnerStop();
+            return true;
+        }
+        if(isTimedOut()){
+            Robot.controlPanelSubSys.spinnerStop();
             return true;
         }
         return false;
+
+        //if(state == State.DONE){
+        //    return true;
+        //}
+        //return false;
     }
 
     // Called once after isFinished returns true
