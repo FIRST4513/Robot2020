@@ -11,9 +11,9 @@
 
 package robot.commands;
 import edu.wpi.first.wpilibj.command.Command;
-import robot.Robot;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import edu.wpi.first.wpilibj.Joystick;
+//import robot.Robot;
+//import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+//import edu.wpi.first.wpilibj.Joystick;
 
 /**
  *
@@ -43,7 +43,7 @@ public class shooterTestRPMCmd extends Command {
     // Called just before this Command runs the first time
     @Override
     protected void initialize() {
-        double setPoint = SmartDashboard.getNumber("Flywheel Target RPM", 0);
+        //double setPoint = SmartDashboard.getNumber("Flywheel Target RPM", 0);
         //Robot.shooterSubSys.updateFlywheelSetPoint(setPoint);
     }
 

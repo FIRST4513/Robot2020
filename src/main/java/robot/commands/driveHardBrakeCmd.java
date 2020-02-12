@@ -40,6 +40,7 @@ public class driveHardBrakeCmd extends Command {
     // Called just before this Command runs the first time
     @Override
     protected void initialize() {
+        setTimeout(m_timeOut);
     }
 
     // Called repeatedly when this Command is scheduled to run
@@ -50,6 +51,8 @@ public class driveHardBrakeCmd extends Command {
     // Make this return true when this Command no longer needs to run execute()
     @Override
     protected boolean isFinished() {
+        if (isTimedOut()) return true;
+        
         return false;
     }
 
