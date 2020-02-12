@@ -15,7 +15,7 @@ import edu.wpi.first.wpilibj.command.Command;
 import robot.Robot;
 import edu.wpi.first.wpilibj.Joystick;
 import robot.subsystems.Drivetrain.DriverControllerMode;
-//.DriverControllerMode;
+
 
 
 /**
@@ -78,7 +78,8 @@ public class driveByJoystickCmd extends Command {
     //private static int TRIGGER_BTN = 1;
 
     private double throttle, yValue, twistValue;				// joystick working variable	
-	private Joystick joy, xBox, ctrlr, play;
+    //private Joystick joy, xBox;
+    private Joystick play, ctrlr;
 	private double joyYaxis, joyTwist, joyThrottle;
     public double motorSpeed,motorAngle;
 	
@@ -98,11 +99,12 @@ public class driveByJoystickCmd extends Command {
     // Called just before this Command runs the first time
     @Override
     protected void initialize() {
-        joy = Robot.oi.driverJoystick;
-        xBox = Robot.oi.driverXboxCtlr;
-        play = Robot.oi.driverPlaystation;
+        //joy = Robot.oi.driverJoystick;      // port 0
+        //xBox = Robot.oi.driverXboxCtlr;     // port 2
+        play = Robot.oi.driverPlaystation;  // port 3
         //System.out.println(" DrivebyJoystickCmd Triggrred!");
 
+        /*
         if (Robot.drivetrain.isControllerJoy()){
             joyType =JoyType.JOY;
             ctrlr = joy;
@@ -121,6 +123,8 @@ public class driveByJoystickCmd extends Command {
                 LOW_GEAR_BTN = XBOX_RIGHT_LOW_GEAR_BTN;
             }
         } else {
+            */
+
             // We are useing a Playstation controller 
 
             joyType = JoyType.PLAY;
@@ -134,7 +138,7 @@ public class driveByJoystickCmd extends Command {
                 ctrlr.setZChannel(PLAY_RIGHT_TWIST_AXIS);
                 LOW_GEAR_BTN = PLAY_RIGHT_LOW_GEAR_BTN;
             }
-        }
+        //}
 
         lastVel = Robot.drivetrain.getRunningAverageVelocity();
         currVel = 0;
@@ -143,7 +147,7 @@ public class driveByJoystickCmd extends Command {
     // Called repeatedly when this Command is scheduled to run
     @Override
     protected void execute() {
-
+        /*
         if (joyType == JoyType.JOY) {
             if (Robot.oi.driverJoystick.getRawButton(JOY_TRIGGER_BTN) == true){
                 //System.out.printf(" y=%g  twist=%g \n\r ",ctrlr.getY(),ctrlr.getTwist());
@@ -171,7 +175,7 @@ public class driveByJoystickCmd extends Command {
                     Robot.drivetrain.stopMtrs();   
                 }
         }
- 
+        */
         if (joyType == JoyType.PLAY) {
             if ((ctrlr.getX() > 0.1) ||
                 (ctrlr.getY() > 0.1) || 
@@ -302,6 +306,7 @@ public class driveByJoystickCmd extends Command {
         motorAngle = twistValue;
     }
 
+    /*
     void calcXboxMotorSpeedAngle() {
         // ------------ Xbox Controller Operation ------------
         // Left REV trigger = axis 2 moves 0 - 1
@@ -389,6 +394,8 @@ public class driveByJoystickCmd extends Command {
         }
         motorAngle = twistValue * throttle;
     }
+    
+    */
     
     private double limitCurrent(double joyValue){
         double tempPwr;

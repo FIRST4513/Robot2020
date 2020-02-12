@@ -39,18 +39,18 @@ public class shooterTestDriveCmd extends Command {
     // Called just before this Command runs the first time
     @Override
     protected void initialize() {
-        joy = Robot.oi.driverJoystick;
+        //joy = Robot.oi.driverJoystick;
     }
 
     // Called repeatedly when this Command is scheduled to run
     @Override
     protected void execute() {
-        double currentSpeed = joy.getY();
-        if (joy.getRawButton(3) == false){
-            Robot.shooterSubSys.stopFlywheels();
-        } else {
-            Robot.shooterSubSys.moveFlywheels(currentSpeed);
-        }
+        //double currentSpeed = joy.getY();
+        //if (joy.getRawButton(3) == false){
+        //    Robot.shooterSubSys.stopFlywheels();
+        //} else {
+        //    Robot.shooterSubSys.moveFlywheels(currentSpeed);
+        //}
     }
 
     // Make this return true when this Command no longer needs to run execute()

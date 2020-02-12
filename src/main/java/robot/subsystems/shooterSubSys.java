@@ -85,7 +85,9 @@ public class shooterSubSys extends Subsystem {
 
     private CANSparkMax flywheelLeftMotor;
     private CANSparkMax flywheelRightMotor;
-    private CANPIDController flywheelPidController;
+    //private CANPIDController flywheelLeftPidController;
+    //private CANPIDController flywheelRightPidController;
+
     private CANEncoder flywheelEncoder;
 
     public static enum TurretSwitchPressed{LEFT, RIGHT, NEITHER};
@@ -151,6 +153,9 @@ turretMotor.setInverted(false);
 
         flywheelLeftMotor.restoreFactoryDefaults();
         flywheelRightMotor.restoreFactoryDefaults();
+
+        //flywheelLeftPidController = flywheelLeftMotor.getPIDController();
+        //flywheelRightPidController = flywheelRightMotor.getPIDController();
     
         // Encoder object created to display position values
         flywheelEncoder = flywheelRightMotor.getEncoder();
@@ -159,7 +164,8 @@ turretMotor.setInverted(false);
         factoryResetFlywheelPid();
 
         // set set point to 0
-        flywheelPidController.setReference(0, ControlType.kVelocity);
+        //flywheelLeftPidController.setReference(0, ControlType.kVelocity);
+        //flywheelRightPidController.setReference(0, ControlType.kVelocity);
 
         // display PID coefficients on SmartDashboard
         SmartDashboard.putNumber("Flywheel P Gain", flywheel_P);
@@ -228,37 +234,43 @@ turretMotor.setInverted(false);
     public void updateFlywheelPid() {
         // if PID coefficients on SmartDashboard have changed, write new values to controller
         if((flywheel_P != previousFlywheel_P)) { 
-            flywheelPidController.setP(flywheel_P); 
+            //flywheelLeftPidController.setP(flywheel_P); 
+            //flywheelRightPidController.setP(flywheel_P); 
             previousFlywheel_P = flywheel_P;
             SmartDashboard.putNumber("Flywheel P Gain", flywheel_P);
         }
 
         if((flywheel_I != previousFlywheel_I)) { 
-            flywheelPidController.setI(flywheel_I); 
+            //flywheelLeftPidController.setI(flywheel_I); 
+            //flywheelRightPidController.setI(flywheel_I); 
             previousFlywheel_I = flywheel_I;
             SmartDashboard.putNumber("Flywheel I Gain", flywheel_I);
         }
 
         if((flywheel_D != previousFlywheel_D)) { 
-            flywheelPidController.setD(flywheel_D); 
+            //flywheelLeftPidController.setD(flywheel_D); 
+            //flywheelRightPidController.setD(flywheel_D); 
             previousFlywheel_D = flywheel_D;
             SmartDashboard.putNumber("Flywheel D Gain", flywheel_D);
         }
 
         if((flywheel_Iz != previousFlywheel_Iz)) { 
-            flywheelPidController.setIZone(flywheel_Iz); 
+            //flywheelLeftPidController.setIZone(flywheel_Iz);
+            //flywheelRightPidController.setIZone(flywheel_Iz); 
             previousFlywheel_Iz = flywheel_Iz;
             SmartDashboard.putNumber("Flywheel I Zone", flywheel_Iz);
         }
 
         if((flywheel_FF != previousFlywheel_FF)) { 
-            flywheelPidController.setFF(flywheel_FF); 
+            //flywheelLeftPidController.setFF(flywheel_FF); 
+            //flywheelRightPidController.setFF(flywheel_FF); 
             previousFlywheel_FF = flywheel_FF;
             SmartDashboard.putNumber("Flywheel Feed Forward", flywheel_FF);
         }
         
         if((flywheelMaxOutput != previousFlywheelMaxOutput) || (flywheelMinOutput != previousFlywheelMinOutput)) { 
-            flywheelPidController.setOutputRange(flywheelMinOutput, flywheelMaxOutput);
+            //flywheelLeftPidController.setOutputRange(flywheelMinOutput, flywheelMaxOutput);
+            //flywheelRightPidController.setOutputRange(flywheelMinOutput, flywheelMaxOutput);
             previousFlywheelMinOutput = flywheelMinOutput; previousFlywheelMaxOutput = flywheelMaxOutput;
             SmartDashboard.putNumber("Flywheel Max Output", flywheelMaxOutput);
             SmartDashboard.putNumber("Flywheel Min Output", flywheelMinOutput);
@@ -267,7 +279,8 @@ turretMotor.setInverted(false);
 
     public void updateFlywheelSetPoint(double setPoint) {
         if((setPoint != flywheelSetPoint)) { 
-            flywheelPidController.setReference(setPoint, ControlType.kVelocity); 
+            //flywheelLeftPidController.setReference(setPoint, ControlType.kVelocity); 
+            //flywheelRightPidController.setReference(setPoint, ControlType.kVelocity); 
             flywheelSetPoint = setPoint;
             SmartDashboard.putNumber("Flywheel Target RPM", flywheelSetPoint);
         }
@@ -277,11 +290,11 @@ turretMotor.setInverted(false);
 
     public void resetEncoders() {
         //FlywheelEncoder reset here.
-        turretEncoder.reset();
+        //turretEncoder.reset();
     }
 
     public void resetTurretEncoder() {
-        turretEncoder.reset();
+        //turretEncoder.reset();
     }
 
     /*     Handoff Methods     */
@@ -319,7 +332,8 @@ turretMotor.setInverted(false);
     }
 
     public int getTurretEncoder() {
-        return turretEncoder.get();
+        //return turretEncoder.get();
+        return 0;
     }
 
     public double getTurretAngle() {
