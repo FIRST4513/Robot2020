@@ -39,11 +39,18 @@ public class intakeSubSys extends Subsystem {
     private static final double ROLLERRETRACTSPEED = 0.5;
     private static final double ROLLEREJECTSPEED = -1.0;
 
+    private static final double MIXERSTOPPEDSPEED = 0.0;
+    private static final double MIXERFEEDSPEED    = 0.5;
+    private static final double MIXERMIXSPEED   = -0.5;
+
     private static final boolean VALVE_EXTEND_STATE = true;
     private static final boolean VALVE_RETRACT_STATE = false;
 
     public enum RollerState {RETRACT, EJECT, STOPPED} ;
     private RollerState rollerState = RollerState.STOPPED;
+
+    public enum MixerMotorState {OFF, FEED, MIX} ;
+    private MixerMotorState mixerMotorState = MixerMotorState.OFF;
 
     public enum IntakeValveState {EXTENDED, RETRACTED} ;
     private IntakeValveState  intakeValveState = IntakeValveState.RETRACTED; 
@@ -96,6 +103,10 @@ mixerMotor = new WPI_VictorSPX(12);
         if(intakeValveState == IntakeValveState.RETRACTED) { intakeExtentionValve.set (VALVE_RETRACT_STATE) ; }
         if(intakeValveState == IntakeValveState.EXTENDED) { intakeExtentionValve.set (VALVE_EXTEND_STATE) ; }
 
+        if(mixerMotorState == MixerMotorState.OFF) { intakeRollerMtr.set (MIXERSTOPPEDSPEED); }
+        else  if(mixerMotorState == MixerMotorState.FEED) { intakeRollerMtr.set (MIXERFEEDSPEED); }
+        else  if(mixerMotorState == MixerMotorState.MIX) { intakeRollerMtr.set (MIXERMIXSPEED); }
+
         updateSmartDash();
     }
 
@@ -115,6 +126,18 @@ mixerMotor = new WPI_VictorSPX(12);
         public void setMixerPower(double power) {
             mixerMotor.set(power);
             mixerPower = power;
+        }
+
+        public void setMixerMotorOff() {
+            mixerMotorState = MixerMotorState.OFF;
+        }
+
+        public void SetMixerMotorMIX() {
+            mixerMotorState = MixerMotorState.MIX;
+        }
+
+        public void SetMixerMotorFEED() {
+            mixerMotorState = MixerMotorState.FEED;
         }
 
         public void rollerMotorEject() {
@@ -145,6 +168,10 @@ mixerMotor = new WPI_VictorSPX(12);
             if (intakeValveState == IntakeValveState.EXTENDED) { SmartDashboard.putString("Intake Valve State", "Extended") ; }
             else if (intakeValveState == IntakeValveState.RETRACTED) { SmartDashboard.putString("Intake Valve State", "Retracted") ; }
 
+            if (mixerMotorState == MixerMotorState.OFF) { SmartDashboard.putString("Mixer Motor State", "OFF") ;} 
+            else if (mixerMotorState == MixerMotorState.FEED) { SmartDashboard.putString("Mixer Motor State", "FEED") ;} 
+            else if (mixerMotorState == MixerMotorState.MIX) { SmartDashboard.putString("Mixer Motor State", "MIX") ; }
+            
             SmartDashboard.putNumber("Mixer Power", mixerPower);
         }
 }

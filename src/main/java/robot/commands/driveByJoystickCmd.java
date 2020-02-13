@@ -276,7 +276,7 @@ public class driveByJoystickCmd extends Command {
         // Twist = axis 4  moves -1 to 1 -1 full left +1 full right
         // Low Gear manual btn 9
 
-        if (ctrlr.getX() > 0){
+        if (ctrlr.getX() > -1){
             //were being driven forward
             joyYaxis = ctrlr.getX();
         } else {
@@ -284,6 +284,7 @@ public class driveByJoystickCmd extends Command {
             joyYaxis = ctrlr.getY();
             joyYaxis *= -1;
         }
+        joyYaxis = (joyYaxis +1) / 2;       // this converts play station (-1 to +1) into ( 0 to 1) 
 
         // Limit speed to prevent voltage drops
         //motorSpeed = limitCurrent(joyYaxis);
