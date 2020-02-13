@@ -62,7 +62,7 @@ public class shooterTestDriveCmd extends Command {
     // Called once after isFinished returns true
     @Override
     protected void end() {
-        Robot.shooterSubSys.stopFlywheels();
+        Robot.shooterSubSys.stopFlywheel();
     }
 
     // Called when another command which requires one or more of the same
