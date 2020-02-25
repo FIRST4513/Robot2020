@@ -13,7 +13,7 @@ package robot.commands;
 import edu.wpi.first.wpilibj.command.Command;
 import robot.Robot;
 //import robot.subsystems.shooterSubSys.HoodSwitchPressed;
-import robot.subsystems.shooterSubSys.TurretSwitchPressed;
+//import robot.subsystems.shooterSubSys.TurretSwitchPressed;
 
 /**
  *
@@ -48,7 +48,7 @@ public class shooterAimByJoystickCmd extends Command {
         
         double joyTwist = Robot.oi.getcoDriverJoystick().getTwist();
         double joyY = Robot.oi.getcoDriverJoystick().getY();
-        double joyThrottle = Robot.oi.getcoDriverJoystick().getThrottle();
+        //double joyThrottle = Robot.oi.getcoDriverJoystick().getThrottle();
         boolean buttonPressed = Robot.oi.getcoDriverJoystick().getRawButton(2);
         boolean overide = Robot.oi.getcoDriverJoystick().getRawButton(9);
 

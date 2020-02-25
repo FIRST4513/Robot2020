@@ -177,7 +177,7 @@ turretHoodMotor = new WPI_TalonSRX(4);
     public void periodic() {
         SmartDashboard.putNumber("Flywheel RPM", getFlywheelRPM());
         processFlywheelState();
-        //updateSmartDashboard();
+        updateSmartDashboard();
 
     }
 
@@ -475,28 +475,29 @@ turretHoodMotor = new WPI_TalonSRX(4);
         }
 
         SmartDashboard.putNumber("Hood Pot", getHoodPot());
+
         SmartDashboard.putNumber("Flywheel Set Point", flywheelSetPoint);
         SmartDashboard.putNumber("Turret Rotate Power", turretRotatePower);
         SmartDashboard.putNumber("Turret Hood Power", turretHoodPower);
         SmartDashboard.putNumber("Handoff Power", handoffPower);
-        SmartDashboard.putNumber("Flywheel RPM", getFlywheelRPM());
+        //SmartDashboard.putNumber("Flywheel RPM", getFlywheelRPM());
         SmartDashboard.putNumber("Flywheel Target RPM", targetRPM);
 
         // read PID coefficients from SmartDashboard       
-        SmartDashboard.putNumber("Start P Gain", sP);
-        SmartDashboard.putNumber("Start I Gain", sI);
-        SmartDashboard.putNumber("Start D Gain", sD);
-        SmartDashboard.putNumber("Start I Zone", sIz);
-        SmartDashboard.putNumber("Start Feed Forward", sFF);
+        // SmartDashboard.putNumber("Start P Gain", sP);
+        // SmartDashboard.putNumber("Start I Gain", sI);
+        // SmartDashboard.putNumber("Start D Gain", sD);
+        // SmartDashboard.putNumber("Start I Zone", sIz);
+        // SmartDashboard.putNumber("Start Feed Forward", sFF);
 
-        SmartDashboard.putNumber("Cruise P Gain", kP);
-        SmartDashboard.putNumber("Cruise I Gain", kI);
-        SmartDashboard.putNumber("Cruise D Gain", kD);
-        SmartDashboard.putNumber("Cruise I Zone", kIz);
-        SmartDashboard.putNumber("Cruise Feed Forward", kFF);
+        // SmartDashboard.putNumber("Cruise P Gain", kP);
+        // SmartDashboard.putNumber("Cruise I Gain", kI);
+        // SmartDashboard.putNumber("Cruise D Gain", kD);
+        // SmartDashboard.putNumber("Cruise I Zone", kIz);
+        // SmartDashboard.putNumber("Cruise Feed Forward", kFF);
 
-        SmartDashboard.putNumber("Max Output", maxOutput);
-        SmartDashboard.putNumber("Min Output", minOutput);
+        // SmartDashboard.putNumber("Max Output", maxOutput);
+        // SmartDashboard.putNumber("Min Output", minOutput);
 
         if ( flywheelStartupState == FlywheelStartupState.ON) {
             SmartDashboard.putString("PID Mode", "Start-Up");
