@@ -52,6 +52,7 @@ public class UDPSendClientCmd extends Command {
         MyUdpClient client = new MyUdpClient(m_server, m_port) ;            
         client.sendMessage(m_msg);
         client.close();
+        
         SmartDashboard.putString("UDP Sent to Server", m_server);
         SmartDashboard.putNumber("UDP Sent to Port", (double)m_port);
         SmartDashboard.putString("UDP Sent Msg", m_msg);

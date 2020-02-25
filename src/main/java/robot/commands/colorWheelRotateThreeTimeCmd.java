@@ -54,7 +54,7 @@ public class colorWheelRotateThreeTimeCmd extends Command {
             end();
         }
 
-        setTimeout(4);
+        setTimeout(6.4);
 
         initialColor = Robot.controlPanelSubSys.getSensorColor();
         lastColor = initialColor;
@@ -68,7 +68,7 @@ public class colorWheelRotateThreeTimeCmd extends Command {
     @Override
     protected void execute() {
         currentColor = Robot.controlPanelSubSys.getSensorColor();
-        Robot.controlPanelSubSys.spinnerTurn(ROTATESPEED);
+        Robot.controlPanelSubSys.spinnerTurnByRotateSpeed();
         if ( (lastColor == initialColor)&&(currentColor != lastColor) ){
             rotateCount --;
         }

@@ -35,14 +35,17 @@ import edu.wpi.first.wpilibj.Preferences;
  */
 public class Robot extends TimedRobot {
 
+    public enum JoystickStatus {CONNECTED, NOTCONNECTED};
+    public static JoystickStatus joystickStatus = JoystickStatus.NOTCONNECTED;
+
     Command autonomousCommand;
     Command autoCmd;
     
     SendableChooser<Command> chooser = new SendableChooser<Command>();
     SendableChooser<String> locChooser = new SendableChooser<String>();
     SendableChooser<String> orientChooser = new SendableChooser<String>();
-    SendableChooser<String> xBoxLRChooser = new SendableChooser<String>();
-    SendableChooser<String> controllerChooser = new SendableChooser<String>();
+    //SendableChooser<String> xBoxLRChooser = new SendableChooser<String>();
+    //SendableChooser<String> controllerChooser = new SendableChooser<String>();
 
 
     public static Timer sysTimer = new Timer();
@@ -119,17 +122,18 @@ udpSubSys = new udpSubSys();
         orientChooser.setDefaultOption("0 Left", 	"Left");
         SmartDashboard.putData("Orient-Choice",orientChooser);
 
-        xBoxLRChooser.addOption  ("0 Left", 	"Left");
-        xBoxLRChooser.addOption  ("1 Right", 	"Right");
-        xBoxLRChooser.setDefaultOption("1 Right", 	"Right");
-        SmartDashboard.putData("xBoxLR-Choice",xBoxLRChooser);
+        //xBoxLRChooser.addOption  ("0 Left", 	"Left");
+        //xBoxLRChooser.addOption  ("1 Right", 	"Right");
+        //xBoxLRChooser.setDefaultOption("1 Right", 	"Right");
+        //SmartDashboard.putData("xBoxLR-Choice",xBoxLRChooser);
 
-        controllerChooser.addOption ("0 Playstation4", "Playstation");
-        controllerChooser.addOption("1 xBox",	"xBox"); 
-    	controllerChooser.addOption ("2 Joystick", "Joystick");
-        controllerChooser.setDefaultOption ("0 Playstation4", "Playstation");
-        SmartDashboard.putData ("Controller-Choice", controllerChooser);
+        //controllerChooser.addOption ("0 Playstation4", "Playstation");
+        //controllerChooser.addOption("1 xBox",	"xBox"); 
+    	//controllerChooser.addOption ("2 Joystick", "Joystick");
+        //controllerChooser.setDefaultOption ("0 Playstation4", "Playstation");
+        //SmartDashboard.putData ("Controller-Choice", controllerChooser);
         
+        checkForPS4Contoller();
         userInit();
     }
 
@@ -170,19 +174,20 @@ udpSubSys = new udpSubSys();
         // this line or comment it out.
         //initPrefs();
 
-        String xBoxLRChoice = xBoxLRChooser.getSelected();
-        if (xBoxLRChoice.equals("Left"))
-            Robot.drivetrain.setXBoxLeftMode();
-        else
-            Robot.drivetrain.setXBoxRightMode();
 
-        String driverCtlrChoice = controllerChooser.getSelected();
-        if (driverCtlrChoice.equals("Playstation"))
-            Robot.drivetrain.setDriveControlPlaystation();
-        else if (driverCtlrChoice.equals("Joystick"))
-            Robot.drivetrain.setDriveControlJoy();
-        else
-            Robot.drivetrain.setDriveControlXBox();
+        //String xBoxLRChoice = xBoxLRChooser.getSelected();
+        // if (xBoxLRChoice.equals("Left"))
+        //     Robot.drivetrain.setXBoxLeftMode();
+        // else
+        //     Robot.drivetrain.setXBoxRightMode();
+
+        // String driverCtlrChoice = controllerChooser.getSelected();
+        // if (driverCtlrChoice.equals("Playstation"))
+        //     Robot.drivetrain.setDriveControlPlaystation();
+        // else if (driverCtlrChoice.equals("Joystick"))
+        //     Robot.drivetrain.setDriveControlJoy();
+        // else
+        //     Robot.drivetrain.setDriveControlXBox();
 
         if (autonomousCommand != null) autonomousCommand.cancel();
     }
@@ -199,7 +204,7 @@ udpSubSys = new udpSubSys();
     public void userInit() {
     	Robot.drivetrain.resetGyro();
     	Robot.drivetrain.resetEncodersAndStats();
-    	Robot.drivetrain.resetPosition(true); 
+    	//Robot.drivetrain.resetPosition(true); 
     	sysTimer.reset();			// System timer for Competition run
     	sysTimer.start();  
     }
@@ -265,5 +270,23 @@ udpSubSys = new udpSubSys();
         Robot.prefs.putDouble( "/Preferences/Test_10_Fwd2Dist",12.0);
         Robot.prefs.putDouble( "/Preferences/Test_11_Fwd2Pwr",0.5);
         Robot.prefs.putDouble( "/Preferences/Test_12_Fwd2Brake",0.5);
+    }
+
+    public static boolean checkForPS4Contoller(){
+        // Check for valid playstation controller on start up
+        // Do not press x-axis joystick for thiss test
+        if ((Robot.oi.driverPlaystation.getRawAxis(3) < -0.9) &&
+            (Robot.oi.driverPlaystation.getRawAxis(4) < -0.9)){
+                // we have a good controller pliugged in
+                joystickStatus = JoystickStatus.CONNECTED;
+                SmartDashboard.putString("Playstation Contoller", "Connected");
+                return true;
+            } else {
+                // On start up xaxis & Yaxis should equal -1.0 if controller conected else zero
+                // We have no controller connected
+                joystickStatus = JoystickStatus.NOTCONNECTED;
+                SmartDashboard.putString("Playstation Contoller", "Not Connected");
+                return false;
+        }
     }
 }

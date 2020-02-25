@@ -62,7 +62,8 @@ public class colorWheelRotateToColorCmd extends Command {
     protected void execute() {
         currentColor = Robot.controlPanelSubSys.getSensorColor();
         if (currentColor != targetColor){
-            Robot.controlPanelSubSys.spinnerTurn(ROTATESPEED);
+            //Robot.controlPanelSubSys.spinnerTurn(ROTATESPEED);
+            Robot.controlPanelSubSys.spinnerTurnByColorSpeed();
         } else {
             Robot.controlPanelSubSys.spinnerStop();
            /* reverseTimer--;

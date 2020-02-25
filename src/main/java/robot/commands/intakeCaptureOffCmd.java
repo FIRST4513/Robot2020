@@ -12,6 +12,7 @@
 package robot.commands;
 import edu.wpi.first.wpilibj.command.Command;
 import robot.Robot;
+import robot.subsystems.intakeSubSys.MixerByIntakeState;
 
 /**
  *
@@ -38,7 +39,7 @@ public class intakeCaptureOffCmd extends Command {
     // Called just before this Command runs the first time
     @Override
     protected void initialize() {
-        setTimeout(3.0);
+        setTimeout(1.125);
     }
 
     // Called repeatedly when this Command is scheduled to run
@@ -46,7 +47,8 @@ public class intakeCaptureOffCmd extends Command {
     protected void execute() {
         Robot.intakeSubSys.retractIntake();      // this drops the intake
         Robot.intakeSubSys.rollerMotorRetract();
-        Robot.intakeSubSys.SetMixerMotorMIX();
+        //Robot.intakeSubSys.SetMixerMotorMIX();
+        Robot.intakeSubSys.setMixerByIntakeState(MixerByIntakeState.FEED);
     }
 
     // Make this return true when this Command no longer needs to run execute()
@@ -61,7 +63,8 @@ public class intakeCaptureOffCmd extends Command {
     @Override
     protected void end() {
         Robot.intakeSubSys.rollerMotorOff();
-        Robot.intakeSubSys.setMixerMotorOff();
+        Robot.intakeSubSys.setMixerByIntakeState(MixerByIntakeState.STOP);
+        //Robot.intakeSubSys.setMixerMotorOff();
     }
 
     // Called when another command which requires one or more of the same

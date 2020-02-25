@@ -76,7 +76,7 @@ public class climbToPositionCmd extends Command {
         }
 
         if(moveSpeed > 0) {
-            Robot.climberSubSys.turnMotorAtSpeed(moveSpeed, false);
+            Robot.climberSubSys.climbMotorSetAtSpeed(moveSpeed, false);
         }
     
     }

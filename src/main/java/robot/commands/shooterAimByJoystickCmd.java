@@ -45,36 +45,19 @@ public class shooterAimByJoystickCmd extends Command {
     // Called repeatedly when this Command is scheduled to run
     @Override
     protected void execute() {
+        
         double joyTwist = Robot.oi.getcoDriverJoystick().getTwist();
-        double joyThrottle = Robot.oi.getcoDriverJoystick().getThrottle();
         double joyY = Robot.oi.getcoDriverJoystick().getY();
-        boolean buttonPressed = Robot.oi.getcoDriverJoystick().getRawButton(11);
+        double joyThrottle = Robot.oi.getcoDriverJoystick().getThrottle();
+        boolean buttonPressed = Robot.oi.getcoDriverJoystick().getRawButton(2);
+        boolean overide = Robot.oi.getcoDriverJoystick().getRawButton(9);
 
         if(buttonPressed == true) {
-            if(Robot.shooterSubSys.checkTurretLimitSwitches() == TurretSwitchPressed.NEITHER) {
-                Robot.shooterSubSys.moveTurret((joyTwist * ((joyThrottle + 1)/2)));
-            }
+            Robot.shooterSubSys.turretRotateMotorSet(joyTwist, overide);
+            Robot.shooterSubSys.turretHoodMotorSet(joyY, overide);
 
-            if(Robot.shooterSubSys.checkTurretLimitSwitches() == TurretSwitchPressed.LEFT) {
-                if(joyTwist <= 0) {
-                    Robot.shooterSubSys.stopTurret();
-                } else {
-                    Robot.shooterSubSys.moveTurret((joyTwist * ((joyThrottle + 1)/2)));
-                }
-            }
-
-            if(Robot.shooterSubSys.checkTurretLimitSwitches() == TurretSwitchPressed.RIGHT) {
-                if(joyTwist >= 0) {
-                    Robot.shooterSubSys.stopTurret();
-                } else {
-                    Robot.shooterSubSys.moveTurret((joyTwist * ((joyThrottle + 1)/2)));
-                }
-            }
-
-            // Move hood by joystick
-            double power = joyY * ((joyThrottle + 1)/2);
-            power = Robot.shooterSubSys.linearizeHoodPower(power, 0.1); // Hardcoded deadband 0.1
-            Robot.shooterSubSys.moveHood(power);
+            //Robot.shooterSubSys.turretRotateMotorSet((joyTwist * ((joyThrottle + 1)/2)) , overide);
+            //Robot.shooterSubSys.turretHoodMotorSet(joyY * ((joyThrottle + 1)/2), overide);
         }
     }
 
@@ -87,8 +70,8 @@ public class shooterAimByJoystickCmd extends Command {
     // Called once after isFinished returns true
     @Override
     protected void end() {
-        Robot.shooterSubSys.stopTurret();
-        Robot.shooterSubSys.stopHood();
+        Robot.shooterSubSys.turretRotateMotorStop();
+        Robot.shooterSubSys.turretHoodMotorStop();
     }
 
     // Called when another command which requires one or more of the same
