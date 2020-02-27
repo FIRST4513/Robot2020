@@ -208,7 +208,7 @@ private Solenoid gearShiftValve;
 
     // --- For Gearshift valve
     public enum Gear {HI,LO};
-    private Gear trans = Gear.LO;
+    private Gear trans = Gear.HI;
 
     // ---- Power Distribution Panel Drive motor breaker number assignments
     private static final int LEFT_TOP_MOTOR_BRKR = 1;
@@ -370,6 +370,7 @@ addChild("gearShiftValve",gearShiftValve);
     @Override
     public void periodic() {
         // Put code here to be run every loop
+        //updateSmartDashboard();
         if (trans == Gear.HI)   { gearShiftValve.set(true);  }
         else                    { gearShiftValve.set(false); }
         
@@ -775,30 +776,36 @@ addChild("gearShiftValve",gearShiftValve);
     // ------------------------ Roborio Preferences Methods -----------------------
     public void getPIDPrefs() {
         // grab the relevant coefficients from the smart dashboard
-        TGT_STRAIGHT = Robot.prefs.getDouble("Drive_10_PID_Fwd_Tgt", TGT_STRAIGHT);
-        TGT_STRAIGHT_HDG = Robot.prefs.getDouble("Drive_10_PID_Fwd_Hdg", TGT_STRAIGHT_HDG);
-        KP_STRAIGHT = Robot.prefs.getDouble("Drive_11_PID_Fwd_P", KP_STRAIGHT);
-        KI_STRAIGHT = Robot.prefs.getDouble("Drive_12_PID_Fwd_I", KI_STRAIGHT);
-        KD_STRAIGHT = Robot.prefs.getDouble("Drive_13_PID_Fwd_D", KD_STRAIGHT);
-        KF_STRAIGHT = Robot.prefs.getDouble("Drive_14_PID_Fwd_F", KF_STRAIGHT);
-        KMAXOUT_STRAIGHT = Robot.prefs.getDouble("Drive_15_PID_Fwd_MaxOut", KMAXOUT_STRAIGHT);
-        ABS_TOL_IN = Robot.prefs.getDouble("Drive_16_PID_Fwd_Tol_In", ABS_TOL_IN);
-        KDRIFT_STRAIGHT = Robot.prefs.getDouble("Drive_17_PID_fwd_Drift", KDRIFT_STRAIGHT);
-        KMOVERT_STRAIGHT = Robot.prefs.getDouble("Drive_18_PID_Fwd_MoveRt",KMOVERT_STRAIGHT);        
-        KBBANG_UPPER_STRAIGHT = Robot.prefs.getDouble("Drive_19_PID_Fwd_BB_Lwr",KBBANG_UPPER_STRAIGHT);
-        KBBANG_UPPER_STRAIGHT = Robot.prefs.getDouble("Drive_19_PID_Fwd_BB_Upr",KBBANG_UPPER_STRAIGHT);     
+   
 
-        TGT_ROT = Robot.prefs.getDouble("Drive_20_PID_Rot_Tgt", TGT_ROT);
-        KP_ROT = Robot.prefs.getDouble("Drive_21_PID_Rot_P", KP_ROT);
-        KI_ROT = Robot.prefs.getDouble("Drive_22_PID_Rot_I", KI_ROT);
+        TGT_STRAIGHT = 48.0; // Robot.prefs.getDouble("Drive_10_PID_Fwd_Tgt", TGT_STRAIGHT);
+        TGT_STRAIGHT_HDG = 0; // Robot.prefs.getDouble("Drive_10_PID_Fwd_Hdg", TGT_STRAIGHT_HDG);
+        KP_STRAIGHT = 0.076; // Robot.prefs.getDouble("Drive_11_PID_Fwd_P", KP_STRAIGHT);
+        KI_STRAIGHT = 0; // Robot.prefs.getDouble("Drive_12_PID_Fwd_I", KI_STRAIGHT);
+        KD_STRAIGHT = 0.36; // Robot.prefs.getDouble("Drive_13_PID_Fwd_D", KD_STRAIGHT);
+        KF_STRAIGHT =0;  // Robot.prefs.getDouble("Drive_14_PID_Fwd_F", KF_STRAIGHT);
+        KMAXOUT_STRAIGHT = 0.80;  // Robot.prefs.getDouble("Drive_15_PID_Fwd_MaxOut", KMAXOUT_STRAIGHT);
+        ABS_TOL_IN = 1; // Robot.prefs.getDouble("Drive_16_PID_Fwd_Tol_In", ABS_TOL_IN);
+        KDRIFT_STRAIGHT = 0.015; // Robot.prefs.getDouble("Drive_17_PID_fwd_Drift", KDRIFT_STRAIGHT);
+        KMOVERT_STRAIGHT = 3.6; // Robot.prefs.getDouble("Drive_18_PID_Fwd_MoveRt",KMOVERT_STRAIGHT);        
+        KBBANG_UPPER_STRAIGHT = 0.38; // Robot.prefs.getDouble("Drive_19_PID_Fwd_BB_Lwr",KBBANG_UPPER_STRAIGHT);
+        //KBBANG_UPPER_STRAIGHT = Robot.prefs.getDouble("Drive_19_PID_Fwd_BB_Lwr",KBBANG_UPPER_STRAIGHT);
+        //KBBANG_UPPER_STRAIGHT = Robot.prefs.getDouble("Drive_19_PID_Fwd_BB_Upr",KBBANG_UPPER_STRAIGHT);    
+
+        TGT_ROT = 45; //Robot.prefs.getDouble("Drive_20_PID_Rot_Tgt", TGT_ROT);
+        KP_ROT = 0.048; //Robot.prefs.getDouble("Drive_21_PID_Rot_P", KP_ROT);
+        KI_ROT = 0; //Robot.prefs.getDouble("Drive_22_PID_Rot_I", KI_ROT);
         
-        KD_ROT = Robot.prefs.getDouble("Drive_23_PID_Rot_D", KD_ROT);
-        KF_ROT = Robot.prefs.getDouble("Drive_24_PID_Rot_F", KF_ROT);
-        ROT_MAX_PWR = Robot.prefs.getDouble("Drive_25_PID_Rot_MaxOut", ROT_MAX_PWR);
-        ABS_TOL_DEG = Robot.prefs.getDouble("Drive_26_PID_Tol_Deg", ABS_TOL_DEG);
-        ROT_BBANG_LOWER_THRESH = Robot.prefs.getDouble("Drive_30_PID_Rot_BB_Lwr", ROT_BBANG_LOWER_THRESH);
-        ROT_BBANG_UPPER_THRESH = Robot.prefs.getDouble("Drive_31_PID_Rot_BB_Upr", ROT_BBANG_UPPER_THRESH);
-        ROT_MOVE_RATE = Robot.prefs.getDouble("Drive_32_PID_Rot_MoveRt", ROT_MOVE_RATE);
+        KD_ROT = 0.14; //Robot.prefs.getDouble("Drive_23_PID_Rot_D", KD_ROT);
+        KF_ROT = 0; //Robot.prefs.getDouble("Drive_24_PID_Rot_F", KF_ROT);
+        ROT_MAX_PWR = 0.75; //Robot.prefs.getDouble("Drive_25_PID_Rot_MaxOut", ROT_MAX_PWR);
+        ABS_TOL_DEG = 1; //Robot.prefs.getDouble("Drive_26_PID_Tol_Deg", ABS_TOL_DEG);
+        ROT_BBANG_LOWER_THRESH = 0.5; //Robot.prefs.getDouble("Drive_30_PID_Rot_BB_Lwr", ROT_BBANG_LOWER_THRESH);
+        ROT_BBANG_UPPER_THRESH = 0.1; //Robot.prefs.getDouble("Drive_31_PID_Rot_BB_Upr", ROT_BBANG_UPPER_THRESH);
+        ROT_MOVE_RATE = 3.0; //Robot.prefs.getDouble("Drive_32_PID_Rot_MoveRt", ROT_MOVE_RATE);
+    
+        // Drive_50_GyroCor = 0.5  ;
+        // Drive_51_GyroMax = 0.5  ;
     }
     
     public void getGyroPrefs() {

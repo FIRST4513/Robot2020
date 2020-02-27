@@ -51,7 +51,7 @@ public class autoDriveFwdTest1CmdGrp extends CommandGroup {
     	
     	// ******** UNCOMMENT NEXT 3 COMMANDS PRIOR TO COMPETION ******!!!!!!!
     	// 			      				 		(tgtDist,    Mode,   TO,   Hdg)    	
-    	addSequential(new DriveFwdPidCmd		(  36.0,      1,    5.0,   0.0));
+    	//addSequential(new DriveFwdPidCmd		(  36.0,      1,    5.0,   0.0));
 
     	// ******** The following line was for testing only ***********
     	//addSequential(new 	DriveFwdPidCmd		(  60.0,      1,    5.0,   0.0));
@@ -62,7 +62,7 @@ public class autoDriveFwdTest1CmdGrp extends CommandGroup {
     	
     	// ******** UNCOMMENT NEXT 3 COMMANDS PRIOR TO COMPETION ******!!!!!!!    	
     	// 			      				 		(tgtDist,    Mode,   TO,   Hdg)    	
-    	addSequential(new DriveFwdPidCmd		(  24.0,      1,    5.0,   90.0));
+    	//addSequential(new DriveFwdPidCmd		(  24.0,      1,    5.0,   90.0));
     	
 
         // 			      				 	    	(tgtDist,  Pwr,   Hdg,  Mode,  TO,  Brake, LimitOveride)

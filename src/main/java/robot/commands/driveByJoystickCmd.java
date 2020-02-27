@@ -166,11 +166,11 @@ public class driveByJoystickCmd extends Command {
     @Override
     protected void execute() {
         // lets verify we have a plugged in controller
-        if ((ctrlr.getRawButton(COMPRESSOR_ON_BTN)   == true) &&
-            (ctrlr.getRawButton(COMPRESSOR_OFF_BTN)) == true) {
-                // force a recheck of the existance of a controller
-                Robot.checkForPS4Contoller();    
-            }
+        // if ((ctrlr.getRawButton(COMPRESSOR_ON_BTN)   == true) &&
+        //     (ctrlr.getRawButton(COMPRESSOR_OFF_BTN)) == true) {
+        //         // force a recheck of the existance of a controller
+        //         Robot.checkForPS4Contoller();    
+        //     }
         if (Robot.joystickStatus == Robot.JoystickStatus.NOTCONNECTED){
             Robot.drivetrain.stopMtrs();
             return;
@@ -250,15 +250,15 @@ public class driveByJoystickCmd extends Command {
         
 
         // Check for Manual gear mode
-        if ( ctrlr.getRawButton(PLAY_SET_LOW_GEAR_BTN) == true) {
-            // if button is held down disregard velocity and acceleration and just lock in low
-            Robot.drivetrain.setGearHI();
-            lastVel = currVel;
-            return;
-        } else {
-            Robot.drivetrain.setGearLO();
-            return;
-        }
+        // if ( ctrlr.getRawButton(PLAY_SET_LOW_GEAR_BTN) == true) {
+        //     // if button is held down disregard velocity and acceleration and just lock in low
+        //     Robot.drivetrain.setGearHI();
+        //     lastVel = currVel;
+        //     return;
+        // } else {
+        //     Robot.drivetrain.setGearLO();
+        //     return;
+        // }
     }
 
     /*

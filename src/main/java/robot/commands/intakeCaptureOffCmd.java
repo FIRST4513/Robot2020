@@ -39,7 +39,7 @@ public class intakeCaptureOffCmd extends Command {
     // Called just before this Command runs the first time
     @Override
     protected void initialize() {
-        setTimeout(1.125);
+        setTimeout(2.0);      // 1.125
     }
 
     // Called repeatedly when this Command is scheduled to run

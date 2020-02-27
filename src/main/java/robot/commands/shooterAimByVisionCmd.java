@@ -99,8 +99,8 @@ public class shooterAimByVisionCmd extends Command {
             }
         } else {
             // we are centered on target
-            Robot.shooterSubSys.turretRotateMotorStop();
-            turretRotateState = TurretRotateState.DONE;
+            //Robot.shooterSubSys.turretRotateMotorStop();
+            //turretRotateState = TurretRotateState.DONE;
         }
 
         

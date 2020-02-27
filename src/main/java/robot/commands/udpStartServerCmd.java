@@ -44,7 +44,7 @@ public class udpStartServerCmd extends Command {
     @Override
     protected void execute() {
             	// start the server
-    	Robot.udpSubSys.startUdpServer(8888);
+    	Robot.udpSubSys.startUdpServer(5801);
     }
 
     // Make this return true when this Command no longer needs to run execute()

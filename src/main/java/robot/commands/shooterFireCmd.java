@@ -16,7 +16,12 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import robot.Robot;
 //import robot.Robot.JoystickStatus;
 import robot.subsystems.intakeSubSys.MixerByShooterState;
+import robot.subsystems.shooterSubSys.FlywheelSpeedState;
+import robot.subsystems.shooterSubSys.FlywheelState;
+//import robot.subsystems.shooterSubSys.GoalTarget;
+import robot.subsystems.shooterSubSys.FlywheelGoalTarget;
 
+//import robot.subsystems.shooterSubSys.FlywheelSpeedState;
 
 public class shooterFireCmd extends Command {
 
@@ -29,6 +34,7 @@ public class shooterFireCmd extends Command {
 
     //private static final boolean LOW_GOAL = false;
     //private static final boolean HIGH_GOAL = true;
+
     private enum GoalTarget {HIGH, LOW};
     private GoalTarget goalTarget = GoalTarget.HIGH;
 
@@ -42,7 +48,7 @@ public class shooterFireCmd extends Command {
     // private static final double RPM_DEADBAND = 100;
 
     private static final int SHOOTER_LOW_GOAL_BTN = 10;
-    private static final int MANUAL_OVERIDE_BTN = 9;
+    private static final int MANUAL_OVERIDE_BTN = 7;
     private boolean overide = false;
 
     // --------- Handoff Motor variables ------
@@ -65,20 +71,39 @@ public class shooterFireCmd extends Command {
     @Override
     protected void initialize() {
         //setTimeout(10);
-        targetRPM = Robot.shooterSubSys.HIGH_GOAL_SPEED;
-        if ( Robot.oi.coDriverJoystick.getRawButton(SHOOTER_LOW_GOAL_BTN) == true) {
-            // were shooting for the low goal
-            goalTarget = GoalTarget.LOW;
-            targetRPM = Robot.shooterSubSys.LOW_GOAL_SPEED;
-            Robot.shooterSubSys.flywheelSetOn(targetRPM, Robot.shooterSubSys.LOW_GOAL);
-            System.out.println("Shooting Low Goal");  
-        } else {
-            // were shooting for the High goal
+
+        // look to see if the flywheel is already up to speed
+        // default target is high speed if not already engaged
+
+        if (Robot.shooterSubSys.getFlywheelState() != FlywheelState.ON) {
+            // no pre spin up done so assume High target since this is used mostly
             goalTarget = GoalTarget.HIGH;
             targetRPM = Robot.shooterSubSys.HIGH_GOAL_SPEED;
             Robot.shooterSubSys.flywheelSetOn(targetRPM, Robot.shooterSubSys.HIGH_GOAL); 
             System.out.println("Shooting High Goal");
+            return;
         }
+
+        
+        if (Robot.shooterSubSys.getFlywheelTarget() == FlywheelGoalTarget.HIGH) {
+            targetRPM = Robot.shooterSubSys.HIGH_GOAL_SPEED;
+        } else {
+            targetRPM = Robot.shooterSubSys.LOW_GOAL_SPEED;
+        }
+
+        // if ( Robot.oi.coDriverJoystick.getRawButton(SHOOTER_LOW_GOAL_BTN) == true) {
+        //     // were shooting for the low goal
+        //     goalTarget = GoalTarget.LOW;
+        //     targetRPM = Robot.shooterSubSys.LOW_GOAL_SPEED;
+        //     Robot.shooterSubSys.flywheelSetOn(targetRPM, Robot.shooterSubSys.LOW_GOAL);
+        //     System.out.println("Shooting Low Goal");  
+        // } else {
+        //     // were shooting for the High goal
+        //     goalTarget = GoalTarget.HIGH;
+        //     targetRPM = Robot.shooterSubSys.HIGH_GOAL_SPEED;
+        //     Robot.shooterSubSys.flywheelSetOn(targetRPM, Robot.shooterSubSys.HIGH_GOAL); 
+        //     System.out.println("Shooting High Goal");
+        // }
 
         if ( Robot.oi.coDriverJoystick.getRawButton(MANUAL_OVERIDE_BTN) == true) {
             overide = true;
@@ -87,6 +112,7 @@ public class shooterFireCmd extends Command {
             overide = false;
         }
         SmartDashboard.putNumber("Fire Delta RPM", Robot.shooterSubSys.PID_FIRE_DELTA);
+        
         shooterState = ShooterState.UNDER_SPEED; // were just starting
     }
 
@@ -127,7 +153,6 @@ public class shooterFireCmd extends Command {
             Robot.intakeSubSys.mixerByShooterState = MixerByShooterState.STOP;
             }
         }
-
 
     // Make this return true when this Command no longer needs to run execute()
     @Override
