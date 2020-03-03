@@ -52,14 +52,15 @@ public class shooterAimByJoystickCmd extends Command {
         
         double joyTwist = Robot.oi.getcoDriverJoystick().getTwist();
         //double joyY = Robot.oi.getcoDriverJoystick().getY();
-        //double joyThrottle = Robot.oi.getcoDriverJoystick().getThrottle();
+        double joyThrottle = Robot.oi.getcoDriverJoystick().getThrottle();
+        //joyThrottle = (joyThrottle + 1)/2 ;  // this changes -1 to +1 into 0 to +1
+        joyThrottle= ((joyThrottle-1)/-2);      // this changes +1 to -1 into 0 to +1
         boolean buttonPressed = Robot.oi.getcoDriverJoystick().getRawButton(2);
         boolean overide = Robot.oi.getcoDriverJoystick().getRawButton(9);
 
         if(buttonPressed == true) {
-            Robot.shooterSubSys.turretRotateMotorSet(joyTwist * HOOD_ROTATE_SCALER, overide);
+            Robot.shooterSubSys.turretRotateMotorSet(((joyTwist * HOOD_ROTATE_SCALER) * joyThrottle) , overide);
             //Robot.shooterSubSys.turretHoodMotorSet(joyY, overide);
-
             //Robot.shooterSubSys.turretRotateMotorSet((joyTwist * ((joyThrottle + 1)/2)) , overide);
             //Robot.shooterSubSys.turretHoodMotorSet(joyY * ((joyThrottle + 1)/2), overide);
         }

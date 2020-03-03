@@ -371,6 +371,12 @@ addChild("gearShiftValve",gearShiftValve);
     public void periodic() {
         // Put code here to be run every loop
         //updateSmartDashboard();
+
+        // test for bad encoder
+        //double left =   leftFMtr.getSelectedSensorPosition(0); 
+        //double right =  rightRMtr.getSelectedSensorPosition(0);
+        //System.out.println("Left="  + left + "  right=" + right);
+
         if (trans == Gear.HI)   { gearShiftValve.set(true);  }
         else                    { gearShiftValve.set(false); }
         
@@ -454,7 +460,7 @@ addChild("gearShiftValve",gearShiftValve);
         if (limitOveride == false) motorPwr = limitPwr(motorPwr);
         gyroCorrection = calcArcadeGyroCorrection();
         motorAngle = gyroCorrection;
-        differentialDrive.arcadeDrive(-motorPwr, motorAngle);
+        differentialDrive.arcadeDrive(-motorPwr, -motorAngle);
         mLogCoastFlag = true;
     	logDrivetrain();
     }
@@ -483,11 +489,11 @@ addChild("gearShiftValve",gearShiftValve);
     // ------------------------ Encoder Methods -------------------------------
     void initEncoders() {
         leftFMtr.setSensorPhase(true);   
-        rightFMtr.setSensorPhase(false);
+        rightRMtr.setSensorPhase(false);
     }
 
     public void resetEncodersAndStats() {				// Set Encoders to zero
-        rightFMtr.getSensorCollection().setQuadraturePosition(0, 10);  	
+        rightRMtr.getSensorCollection().setQuadraturePosition(0, 10);  	
         leftFMtr.getSensorCollection().setQuadraturePosition(0, 10);
         
     	
@@ -527,10 +533,10 @@ addChild("gearShiftValve",gearShiftValve);
     public double getTrackerYaw()           { return avgStats.mCurrTrackerYaw; }
     
     public int getLeftEncoder() 			{ return leftFMtr.getSelectedSensorPosition(0); }
-    public int getRightEncoder()			{ return rightFMtr.getSelectedSensorPosition(0); }
+    public int getRightEncoder()			{ return rightRMtr.getSelectedSensorPosition(0); }
 
     public int getLeftEncoderVel() 			{ return leftFMtr.getSelectedSensorVelocity(0); }
-    public int getRightEncoderVel()			{ return rightFMtr.getSelectedSensorVelocity(0); }    
+    public int getRightEncoderVel()			{ return rightRMtr.getSelectedSensorVelocity(0); }    
     
     public double getLeftEncoderDist()		{ return (getLeftEncoder() * k_EncConvConst); }
     public double getRightEncoderDist()		{ return (getRightEncoder() * k_EncConvConst); }
@@ -861,23 +867,6 @@ addChild("gearShiftValve",gearShiftValve);
         SmartDashboard.putNumber("Right_T_Mtr Curr",Rmath.mRound(rightStats.currentTMtr, 3));
 
         SmartDashboard.putNumber("Avg_Mtr Curr",Rmath.mRound(avgStats.currentAVG, 3));
-
-        if      ( Robot.robotPosState == Robot.RobotPosState.TRAVEL)
-                              SmartDashboard.putString("Robot State", "TRAVEL POS.");
-        else if ( Robot.robotPosState == Robot.RobotPosState.EJECT_MAIN)
-                              SmartDashboard.putString("Robot State", "EJECT_MAIN POS.");
-        else if ( Robot.robotPosState == Robot.RobotPosState.EJECT_ROCKET_MID)
-                              SmartDashboard.putString("Robot State", "EJECT_ROCKET_MID POS.");
-        else if ( Robot.robotPosState == Robot.RobotPosState.EJECT_ROCKET_HIGH)
-                              SmartDashboard.putString("Robot State", "EJECT_ROCKET_HIGH POS.");
-        else if ( Robot.robotPosState == Robot.RobotPosState.EJECT_HATCH_FWD)
-                              SmartDashboard.putString("Robot State", "EJECT_HATCH_FWD POS.");
-        else if ( Robot.robotPosState == Robot.RobotPosState.RETREIVE_CARGO)
-                              SmartDashboard.putString("Robot State", "RETREIVE_CARGO POS.");
-        else if ( Robot.robotPosState == Robot.RobotPosState.RETREIVE_HATCH_FLOOR)
-                              SmartDashboard.putString("Robot State", "RETREIVE_HATCH_FLOOR POS.");
-        else if ( Robot.robotPosState == Robot.RobotPosState.RETREIVE_HATCH_LS)
-                              SmartDashboard.putString("Robot State", "RETREIVE_HATCH_LS POS.");
     }
     
     private void clearPIDdata() {

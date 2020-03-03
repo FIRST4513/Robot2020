@@ -113,7 +113,7 @@ flywheelHighBtn.whenPressed(new flywheelOnHighCmd());
 flywheelOffBtn = new JoystickButton(coDriverJoystick, 8);
 flywheelOffBtn.whenPressed(new flywheelOffCmd());
 shooterFireBtn = new JoystickButton(coDriverJoystick, 1);
-shooterFireBtn.whileHeld(new shooterFireCmd());
+shooterFireBtn.whileHeld(new shooterFireCmd(0, 0));
 shooterAimByVision = new JoystickButton(coDriverJoystick, 11);
 shooterAimByVision.whileHeld(new shooterAimByVisionCmd());
 coloWheelLowerBtn = new JoystickButton(coDriverJoystick, 4);
@@ -149,45 +149,11 @@ intakeCaptureOnBtn.whenPressed(new intakeCaptureOnCmd());
 
 
         // SmartDashboard Buttons
-        SmartDashboard.putData("Autonomous Command", new AutonomousCommand());
-        SmartDashboard.putData("cameraACmdGrp", new cameraACmdGrp());
-        SmartDashboard.putData("cameraBCmdGrp", new cameraBCmdGrp());
-        SmartDashboard.putData("cameraFlipCmdGrp", new cameraFlipCmdGrp());
-        SmartDashboard.putData("climbActivateBrakeCmd", new climbActivateBrakeCmd());
-        SmartDashboard.putData("climbReleaseBrakeCmd", new climbReleaseBrakeCmd());
-        SmartDashboard.putData("colorWheelLowerCmd", new colorWheelLowerCmd());
-        SmartDashboard.putData("colorWheelRaiseCmd", new colorWheelRaiseCmd());
-        SmartDashboard.putData("colorWheelRotateThreeTimeCmd", new colorWheelRotateThreeTimeCmd());
-        SmartDashboard.putData("colorWheelRotateToColorCmd", new colorWheelRotateToColorCmd());
-        SmartDashboard.putData("colorWheelThreeRotateCmdGrp", new colorWheelThreeRotateCmdGrp());
-        SmartDashboard.putData("compressorOnCmd", new compressorOnCmd());
-        SmartDashboard.putData("compressorOffCmd", new compressorOffCmd());
-        SmartDashboard.putData("drivePointTurnCmd", new drivePointTurnCmd());
-        SmartDashboard.putData("driveForwardCmd", new driveForwardCmd());
-        SmartDashboard.putData("driveArcCmd", new driveArcCmd());
-        SmartDashboard.putData("driveSoftBrakeCmd", new driveSoftBrakeCmd());
-        SmartDashboard.putData("intakeCaptureOffCmd", new intakeCaptureOffCmd());
-        SmartDashboard.putData("intakeCaptureOnCmd", new intakeCaptureOnCmd());
-        SmartDashboard.putData("intakeValveExtendCmd", new intakeValveExtendCmd());
-        SmartDashboard.putData("intakeValveRetractCmd", new intakeValveRetractCmd());
-        SmartDashboard.putData("intakeCaptureOnCmdGrp", new intakeCaptureOnCmdGrp());
-        SmartDashboard.putData("intakeRollerMotorEjectCmd", new intakeRollerMotorEjectCmd());
-        SmartDashboard.putData("intakeRollerMotorRetractCmd", new intakeRollerMotorRetractCmd());
-        SmartDashboard.putData("intakeRollerMotorStopCmd", new intakeRollerMotorStopCmd());
-        SmartDashboard.putData("intakeCaptureOffCmdGrp", new intakeCaptureOffCmdGrp());
         SmartDashboard.putData("udpStartServerCmd", new udpStartServerCmd());
         SmartDashboard.putData("udpStopServerCmd", new udpStopServerCmd());
         SmartDashboard.putData("ResetGyroCmd", new ResetGyroCmd());
         SmartDashboard.putData("ResetEncodersCmd", new ResetEncodersCmd());
-        SmartDashboard.putData("Reset_Robot_Pos_Cmd", new Reset_Robot_Pos_Cmd());
-        SmartDashboard.putData("shooterTestRPMCmd", new shooterTestRPMCmd());
-        SmartDashboard.putData("shooterCalibrateCmd", new shooterCalibrateCmd());
-        SmartDashboard.putData("shooterAimByVisionCmd", new shooterAimByVisionCmd());
-        SmartDashboard.putData("shooterFireCmd", new shooterFireCmd());
         SmartDashboard.putData("autoDriveFwdTest1CmdGrp", new autoDriveFwdTest1CmdGrp());
-        SmartDashboard.putData("flywheelOnHighCmd", new flywheelOnHighCmd());
-        SmartDashboard.putData("flywheelOnLowCmd", new flywheelOnLowCmd());
-        SmartDashboard.putData("flywheelOffCmd", new flywheelOffCmd());
         SmartDashboard.putData("autoFwd24TestCmdGrp", new autoFwd24TestCmdGrp());
         SmartDashboard.putData("autoRev24TestCmdGrp", new autoRev24TestCmdGrp());
         SmartDashboard.putData("autoSwingTurretToCenterPosCmd", new autoSwingTurretToCenterPosCmd());
@@ -195,6 +161,13 @@ intakeCaptureOnBtn.whenPressed(new intakeCaptureOnCmd());
         SmartDashboard.putData("autoNoVisionCtrHighGoalCmdGrp", new autoNoVisionCtrHighGoalCmdGrp());
         SmartDashboard.putData("autoNoVisionLeftHighGoalCmdGrp", new autoNoVisionLeftHighGoalCmdGrp());
         SmartDashboard.putData("autoNoVisionRightHighGoalCmdGrp", new autoNoVisionRightHighGoalCmdGrp());
+        SmartDashboard.putData("autoAimCmdGrp", new autoAimCmdGrp());
+        SmartDashboard.putData("autoAimHoodCmd: default", new autoAimHoodCmd(0, 0));
+        SmartDashboard.putData("autoAimRotateCmd: default", new autoAimRotateCmd(0, 0));
+        SmartDashboard.putData("autoDoNothingCmdGrp", new autoDoNothingCmdGrp());
+        SmartDashboard.putData("autoLineOnlyCmdGrp", new autoLineOnlyCmdGrp());
+        SmartDashboard.putData("hoodRotateResetCmd", new hoodRotateResetCmd());
+        SmartDashboard.putData("cameraResetCmdGrp", new cameraResetCmdGrp());
 
     // END AUTOGENERATED CODE, SOURCE=ROBOTBUILDER ID=CONSTRUCTORS
     
@@ -236,10 +209,13 @@ intakeCaptureOnBtn.whenPressed(new intakeCaptureOnCmd());
 
         // to be triggered by Hat POV on Joystick
         hoodTopBtn = new POVButton(coDriverJoystick, 90);            // trip on right
-        hoodTopBtn.whenPressed(new hoodTopCmd());
+        //hoodTopBtn.whenPressed(new hoodTopCmd());
+        hoodTopBtn.whenPressed(new autoSwingTurretToCenterPosCmd());
         
         hoodBottomBtn = new POVButton(coDriverJoystick,270);        // trip on left
-        hoodBottomBtn.whenPressed(new hoodBottomCmd());
+        //hoodBottomBtn.whenPressed(new hoodBottomCmd());
+        //hoodBottomBtn.whenPressed(new autoSwingTurretToCenterPosCmd());
+        hoodBottomBtn.whenPressed(new hoodToPositionCmd(3.465, 5.0));
 
         hoodLowerBtn = new POVButton(coDriverJoystick, 180);        // trip on bottom
         hoodLowerBtn.whileHeld(new hoodLowerCmd());

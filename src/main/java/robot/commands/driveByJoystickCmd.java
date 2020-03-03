@@ -184,6 +184,7 @@ public class driveByJoystickCmd extends Command {
                     //System.out.printf(" x=%g  y=%g z=%g\n\r ", ctrlr.getX(), ctrlr.getY(), ctrlr.getZ() );
                     updateDrivetrainGearSetting();                      // Automatic transmission routine (change to High speed as needed)! 
                     calcPlayMotorSpeedAngle();                          // Get joystick position values and calculate speed and direction
+
                     Robot.drivetrain.driveByJoystick(motorSpeed,motorAngle); // Send command to Drivetrain to run motors
                     //System.out.printf(" motorSpeed = %g  motorAngle = %g \n\r ", motorSpeed, motorAngle );
                 } else {

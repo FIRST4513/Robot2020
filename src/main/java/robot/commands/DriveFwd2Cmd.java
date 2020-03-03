@@ -39,7 +39,7 @@ public class DriveFwd2Cmd extends Command {
     int stallCtr = 0;
     final double START_TIME = 0.08;				// Time to wait for motors to start moving robot
 	final double STALL_VELOCITY = 2.0;			// Speed less than this will indicate stopped 
-	final double LO_SPEED_VELOCITY = 15;			// Speed less than this will indicate stopped 
+	final double LO_SPEED_VELOCITY = 15.0;		// Speed less than this will indicate stopped 
     final double STOP_PWR  = - 0.50;			// Power to reverse motors to brake
     double currStop_pwr = STOP_PWR;
     
@@ -95,11 +95,11 @@ public class DriveFwd2Cmd extends Command {
 		Robot.drivetrain.resetEncodersAndStats();
 		Robot.drivetrain.setGearLO();		// Set transmission to Low speed gear
 
-    	if ((m_dist == 0) && (m_pwr == 0)) {
-    		// Get Test Data !
-        	m_dist = Robot.prefs.getDouble	("Test_10_Fwd2Dist", m_dist);
-        	m_pwr = Robot.prefs.getDouble	("Test_11_Fwd2Pwr", m_pwr);    		
-    	}
+    	// if ((m_dist == 0) && (m_pwr == 0)) {
+    	// 	// Get Test Data !
+        // 	m_dist = Robot.prefs.getDouble	("Test_10_Fwd2Dist", m_dist);
+        // 	m_pwr = Robot.prefs.getDouble	("Test_11_Fwd2Pwr", m_pwr);    		
+    	// }
     	
     	if ((m_dist < 0) && ( m_pwr > 0 )) m_pwr *= -1;// Power must be negative if Distance is negative
     	if (m_pwr < 0) 	currStop_pwr = -STOP_PWR;					// Brake Power must be opposite of drive pwr
@@ -127,7 +127,10 @@ public class DriveFwd2Cmd extends Command {
       	// ---- Look up key data to start ----
     	currDist = Robot.drivetrain.getAverageDist();
     	currSpeed = Robot.drivetrain.getAverageSpeed();
-    	m_RemainTgtDist = m_dist - currDist;
+        m_RemainTgtDist = m_dist - currDist;
+        double currHdg = Robot.drivetrain.getGyroYaw();
+        
+        System.out.println("currDist = " + currDist + "  remainDist=" +  m_RemainTgtDist + "  currHdg"  + currHdg);
 
     	// ----- State 0 (Initial Stopped State) -----
     	if (mDriveState == DriveMode.START){
