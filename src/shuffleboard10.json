@@ -130,6 +130,17 @@
               "_source0": "network_table:///SmartDashboard/hoodRotateResetCmd",
               "_title": "SmartDashboard/hoodRotateResetCmd"
             }
+          },
+          "12,9": {
+            "size": [
+              5,
+              2
+            ],
+            "content": {
+              "_type": "Command",
+              "_source0": "network_table:///SmartDashboard/cameraResetCmdGrp",
+              "_title": "SmartDashboard/cameraResetCmdGrp"
+            }
           }
         }
       }
@@ -1370,7 +1381,7 @@
               "_title": "SmartDashboard/Vision Y Angle"
             }
           },
-          "13,2": {
+          "14,2": {
             "size": [
               4,
               2
@@ -1660,7 +1671,7 @@
               "_title": "Rotate Power"
             }
           },
-          "10,2": {
+          "10,3": {
             "size": [
               12,
               9
@@ -1904,7 +1915,7 @@
             "content": {
               "_type": "Text View",
               "_source0": "network_table:///SmartDashboard/Average RPM",
-              "_title": "Average RPM"
+              "_title": "SmartDashboard/Average RPM"
             }
           }
         }
@@ -2056,7 +2067,7 @@
       }
     },
     {
-      "title": "Smardash",
+      "title": "Smartdash",
       "autoPopulate": false,
       "autoPopulatePrefix": "",
       "widgetPane": {
@@ -2226,9 +2237,9 @@
     }
   ],
   "windowGeometry": {
-    "x": 192.5,
+    "x": 159.5,
     "y": 14.5,
-    "width": 1652.5,
+    "width": 1685.5,
     "height": 761.5
   }
 }

@@ -44,6 +44,7 @@ public class flywheelOnLowCmd extends Command {
     protected void initialize() {
         Robot.shooterSubSys.flywheelSetOn(Robot.shooterSubSys.LOW_GOAL_SPEED, Robot.shooterSubSys.LOW_GOAL); 
         System.out.println("flywheelOnLowCmd starting up !");
+        Robot.logger.appendLog("Setting Flywheel to LOW Goal Speed !");
     }
 
     // Called repeatedly when this Command is scheduled to run

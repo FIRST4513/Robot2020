@@ -47,7 +47,8 @@ public class intakeCaptureOnCmd extends Command {
     protected void execute() {
         Robot.intakeSubSys.extendIntake();      // this drops the intake
         Robot.intakeSubSys.rollerMotorRetract();
-        Robot.intakeSubSys.setMixerByIntakeState(MixerByIntakeState.FEED);
+        //Robot.intakeSubSys.setMixerByIntakeState(MixerByIntakeState.FEED);
+        
         //Robot.intakeSubSys.SetMixerMotorMIX();
 
     }

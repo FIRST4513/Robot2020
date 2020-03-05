@@ -45,6 +45,7 @@ public class flywheelOnHighCmd extends Command {
     protected void initialize() {
         Robot.shooterSubSys.flywheelSetOn(Robot.shooterSubSys.HIGH_GOAL_SPEED, Robot.shooterSubSys.HIGH_GOAL); 
         System.out.println("flywheelOnHighCmd starting up !");
+        Robot.logger.appendLog("Setting Flywheel to HIGH Goal Speed !");
     }
 
     // Called repeatedly when this Command is scheduled to run

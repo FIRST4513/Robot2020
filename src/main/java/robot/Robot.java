@@ -118,6 +118,7 @@ udpSubSys = new udpSubSys();
     public void disabledInit(){
         Robot.shooterSubSys.flywheelSetOff();
         Robot.climberSubSys.setBrake();
+        Robot.logger.printLog();
     }
 
     @Override

@@ -35,13 +35,19 @@ public class shooterFireCmd extends Command {
     //private static final boolean LOW_GOAL = false;
     //private static final boolean HIGH_GOAL = true;
 
+    String line = "";
+
     private enum GoalTarget {HIGH, LOW};
     private GoalTarget goalTarget = GoalTarget.HIGH;
 
+    private enum ModeState{Joystck, AUTO_10Foot};
+    private ModeState modeState = ModeState.Joystck;
+    private int firstTimeFlag = 0;
+
     private double targetRPM = Robot.shooterSubSys.HIGH_GOAL_SPEED;  // default to high goal
 
-    private enum ShooterState { UP_TO_SPEED, UNDER_SPEED, FEEDING }
-    ShooterState shooterState = ShooterState.UNDER_SPEED;
+    private enum ShooterState { STARTUP, UP_TO_SPEED, UNDER_SPEED, FEEDING }
+    ShooterState shooterState = ShooterState.STARTUP;
 
     // private static final double SHOOTER_SPEED = 5200; // In RPM
     // private static final double SHOOTER_PWR = 0.65;
@@ -53,6 +59,8 @@ public class shooterFireCmd extends Command {
 
     private int m_mode = 0;
     private double m_timeout = 0;
+    private double currentRPM = 0;
+    private double delta = 0;
 
     // --------- Handoff Motor variables ------
     private static final double  HANDOFF_MOTOR_FEED_SPEED = 1.0;
@@ -78,81 +86,113 @@ public class shooterFireCmd extends Command {
     @Override
     protected void initialize() {
         if (m_mode == 0) {
-            // fire by joystick no timeout
-        } else {
-            // fire by atonomous
+            // fire by Joystick (no timeout)
+            line = "shooterFireCmd has been started by the Joystick trigger!";
+            modeState = ModeState.Joystck;
+        } 
+        if (m_mode == 1) {
+            // fire by Autonomous from 10 foot mark
             setTimeout(m_timeout);
-            System.out.println("**** Autonomous Firing -------- Shooting Goal");
-            System.out.println("**** Autonomous Firing -------- Starting RPM ="+ Robot.shooterSubSys.getFlywheelRPM());
+            firstTimeFlag = 0;
+            line = ("shooterFireCmd has been started by Autonomous Firing -------- Starting RPM ="+ Robot.shooterSubSys.getFlywheelRPM());
+            modeState = ModeState.AUTO_10Foot;
         }
-            
+        System.out.println(line);
+        Robot.logger.appendLog(line); 
 
-        // look to see if the flywheel is already up to speed
-        // default target is high speed if not already engaged
+        shooterState = ShooterState.STARTUP;
 
         if (Robot.shooterSubSys.getFlywheelState() != FlywheelState.ON) {
             // no pre spin up done so assume High target since this is used mostly
             goalTarget = GoalTarget.HIGH;
             targetRPM = Robot.shooterSubSys.HIGH_GOAL_SPEED;
-            Robot.shooterSubSys.flywheelSetOn(targetRPM, Robot.shooterSubSys.HIGH_GOAL); 
-            System.out.println("Shooting High Goal");
+            Robot.shooterSubSys.flywheelSetOn(targetRPM, Robot.shooterSubSys.HIGH_GOAL);
+            shooterState = ShooterState.UNDER_SPEED;
             return;
         }
 
-        
+        // look to see if the flywheel is already up to speed
+        // default target is high speed if not already engaged
+
         if (Robot.shooterSubSys.getFlywheelTarget() == FlywheelGoalTarget.HIGH) {
             targetRPM = Robot.shooterSubSys.HIGH_GOAL_SPEED;
+            line = ("   Shooting HIGH Goal !");
         } else {
+            goalTarget = GoalTarget.LOW;
             targetRPM = Robot.shooterSubSys.LOW_GOAL_SPEED;
+
+            line = ("    Shooting LOW Goal !");
+            return; // We dont care about comming up to speed
         }
 
-        if ( Robot.oi.coDriverJoystick.getRawButton(MANUAL_OVERIDE_BTN) == true) {
-            overide = true;
-            System.out.println("Overide button pressed");
+        // High goal only - Check to see if up to speed
+        currentRPM = Robot.shooterSubSys.getFlywheelRPM();
+        if ((Math.abs(delta) < Robot.shooterSubSys.PID_FIRE_DELTA)){
+            // We are up to speed already
+            shooterState = ShooterState.UP_TO_SPEED;  
         } else {
-            overide = false;
+            shooterState = ShooterState.UNDER_SPEED;      
         }
-        SmartDashboard.putNumber("Fire Delta RPM", Robot.shooterSubSys.PID_FIRE_DELTA);
         
-        shooterState = ShooterState.UNDER_SPEED; // were just starting
+        line = line + (" CurrentRPM=" + currentRPM + " TargetRPM=" + targetRPM + " FireDelta=" + Robot.shooterSubSys.PID_FIRE_DELTA);
+        System.out.println(line);
+        Robot.logger.appendLog(line);  
     }
 
     // Called repeatedly when this Command is scheduled to run
     @Override
     protected void execute() {
-        double currentRPM = Robot.shooterSubSys.getFlywheelRPM();
-        double delta = currentRPM-targetRPM;
-
-        overide = Robot.oi.coDriverJoystick.getRawButton(MANUAL_OVERIDE_BTN);      
+        overide = Robot.oi.coDriverJoystick.getRawButton(MANUAL_OVERIDE_BTN);  
+        currentRPM = Robot.shooterSubSys.getFlywheelRPM();
+        delta = currentRPM-targetRPM;
+        line =  ( "Shooting flywheel CurrentRPM=" + currentRPM + "  Target RPM=" + targetRPM + "  Delta=" + delta);
+        Robot.logger.appendLog(line);  
 
         if (goalTarget == GoalTarget.LOW) {
             // were going for low gear
-            if (shooterState == ShooterState.UNDER_SPEED) {
-                // were not up to speed yet
-                if ((currentRPM > (targetRPM-1000)) || (overide)) {
-                    // we have made it up to speed
-                    shooterState = ShooterState.UP_TO_SPEED;
-                    
-                } else {
-                    // we have not made it up to speed yet so get out
-                    return;
-                }
-            }
-            // were here because we are up to speed on low goal
+            shooterState = ShooterState.UP_TO_SPEED;
             Robot.shooterSubSys.handoffMotorSet(HANDOFF_MOTOR_FEED_SPEED);
             Robot.intakeSubSys.mixerByShooterState = MixerByShooterState.FEED;
+            line = ("   LOW Goal shooter is Up to speed !");
+            Robot.logger.appendLog(line);  
             return;
-        } // end of low goal
+        }
         
-        // High Goal
+        // ------- High Goal --------
+        if (m_mode == 1) {
+            // Were in autonomous Fire Mode for 10 foot position ... fire all balls quickly 
+            // after initially comming up to speed
+            if (firstTimeFlag == 0){
+                // waiting to come up to speed first time only
+                if (delta < Robot.shooterSubSys.PID_FIRE_DELTA) {
+                //if (Math.abs(delta) < Robot.shooterSubSys.PID_FIRE_DELTA) {
+                    // were up to speed good to fire
+                    firstTimeFlag = 1;  // dont need this check again
+                    Robot.shooterSubSys.handoffMotorSet(HANDOFF_MOTOR_FEED_SPEED );
+                    Robot.intakeSubSys.mixerByShooterState = MixerByShooterState.FEED;
+                    line = ("   HIGH Goal shooter is Up to speed !");
+                    Robot.logger.appendLog(line);
+                    return;
+                }
+            } else {
+                // we have already come up to speed, keep shooting till timeout
+                return;
+            }
+        }
+
+        // Were here because we are shooting High goal not during autonomous
         if (((Math.abs(delta) < Robot.shooterSubSys.PID_FIRE_DELTA)) || (overide)) {
             // were up to speed good to fire
             Robot.shooterSubSys.handoffMotorSet(HANDOFF_MOTOR_FEED_SPEED );
             Robot.intakeSubSys.mixerByShooterState = MixerByShooterState.FEED;
+            line = ("   HIGH Goal shooter is Up to speed !");
+            Robot.logger.appendLog(line);
         } else {
             // were not in speed 
             Robot.shooterSubSys.handoffMotorStop();
             Robot.intakeSubSys.mixerByShooterState = MixerByShooterState.STOP;
+            line = "   HIGH Goal shooter is NOT Up to speed 1";
+            Robot.logger.appendLog(line);
             }
         }
 
@@ -161,9 +201,11 @@ public class shooterFireCmd extends Command {
     protected boolean isFinished() {
         if ((m_mode != 0) && (isTimedOut())){
             // we are shooting by auto we have timedout so end command
+            line = "shooterFireCmd has Timed out !!!!!";
+            System.out.println(line);
+            Robot.logger.appendLog(line);
             return true;
         }
-        
         return false;
     }
 
@@ -173,6 +215,9 @@ public class shooterFireCmd extends Command {
         //Robot.shooterSubSys.flywheelSetOff();
         Robot.shooterSubSys.handoffMotorStop();
         Robot.intakeSubSys.setMixerByShooterState(MixerByShooterState.STOP);
+        line = "shooterFireCmd has ended!";
+        System.out.println(line);
+        Robot.logger.appendLog(line);
     }
 
     // Called when another command which requires one or more of the same

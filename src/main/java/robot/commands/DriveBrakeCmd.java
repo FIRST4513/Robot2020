@@ -141,7 +141,7 @@ public class DriveBrakeCmd extends Command {
     	if (mRightDriveState == DriveState.DONE) mRightBrakePwr = 0;
     	if (mRightDriveDir == DriveDir.FWD) mRightBrakePwr *= -1;
     	
-    	System.out.println(" LFT PWR = " + mLeftBrakePwr + " RT PWR=" + mRightBrakePwr);
+    	//System.out.println(" LFT PWR = " + mLeftBrakePwr + " RT PWR=" + mRightBrakePwr);
        	Robot.drivetrain.tankDrive(mLeftBrakePwr, mRightBrakePwr);
        	Robot.drivetrain.putZoneData( 9, mDist, 0, 0, 0 );	// Log distance to tgt 
     }
@@ -151,7 +151,12 @@ public class DriveBrakeCmd extends Command {
     // Make this return true when this Command no longer needs to run execute()
     @Override
     protected boolean isFinished() {
-      	if (isTimedOut()) return true;				// used in all modes
+      	if (isTimedOut()) {
+            line = "DriveBrakeCmd - has Timed out !!";
+    		Robot.logger.appendLog(line);
+    		System.out.println(line) ;    
+            return true;				// used in all modes
+            }
 
     	if ((mLeftDriveState == DriveState.DONE) && (mRightDriveState == DriveState.DONE)) {
     		// Cmd has completed its distance

@@ -58,13 +58,12 @@ public class autoNoVisionCtrHighGoalCmdGrp extends CommandGroup {
     // Shoot balls for 5 seconds
     //             shooterFireCmd(int mode, double timeout)
     addSequential (new shooterFireCmd( 1,         7.0));
-
     
     addSequential(new flywheelOffCmd()); 
 
     // Move off line
     //		 		DriveFwd2Cmd		( tgtDist,   Pwr,     Hdg,   Mode,   TO,   Brake, LimitOverideFlag))
-    addSequential(new DriveFwd2Cmd		(  -24.0,    0.70,    0.0,    1,     4.0,  false,      false));
+    addSequential(new DriveFwd2Cmd		(  -24.0,    0.75,    0.0,    1,     4.0,  false,      false));
     addSequential(new DriveBrakeCmd		(  3.0));  
 
     } 

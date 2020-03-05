@@ -12,6 +12,7 @@
 package robot.commands;
 import edu.wpi.first.wpilibj.command.Command;
 import robot.Robot;
+import robot.subsystems.logger;
 
 /**
  *
@@ -37,12 +38,14 @@ public class driveSetHighGearCmd extends Command {
     // Called just before this Command runs the first time
     @Override
     protected void initialize() {
+        Robot.logger.appendLog("Settting Drivetrain to HIGH Gear!");
+        Robot.drivetrain.setGearHI();
     }
 
     // Called repeatedly when this Command is scheduled to run
     @Override
     protected void execute() {
-        Robot.drivetrain.setGearHI();
+
     }
 
     // Make this return true when this Command no longer needs to run execute()
