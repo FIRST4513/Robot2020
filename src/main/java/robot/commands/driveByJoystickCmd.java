@@ -43,7 +43,7 @@ public class driveByJoystickCmd extends Command {
      private static final int COMPRESSOR_OFF_BTN = 10;
 
 	private static double currVel, lastVel;
-	public static final double TWISTTHROTTLEMOD = 0.78;			//reserves memory for variable/attribute TWISTTHROTTLEMOD which is a constant
+	public static final double TWISTTHROTTLEMOD = 0.72;			//reserves memory for variable/attribute TWISTTHROTTLEMOD which is a constant
     private static final double TWISTDEADBAND = 0.05;		    //reserves memory for variable/attribute TWISTDEADBAND which is a constant
     private static final double XYDEADBAND = 0.1;				//reserves memory for variable/attribute XYDEADBAND which is a constant
     private static final double UP_SHIFT_VELOCITY_PT = 12;		// Speed less than this will use low gear else jumps into high gear 

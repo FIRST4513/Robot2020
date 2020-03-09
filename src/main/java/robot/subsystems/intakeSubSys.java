@@ -52,9 +52,10 @@ public class intakeSubSys extends Subsystem {
     //private static final double  INTAKE_OFF_DELAY = 3.0;  // delay stop rollers on retract
     
     // --------- Mixer by Shooter Motor variables ------
-    public enum MixerByShooterState {FEED, STOP};
+    public enum MixerByShooterState {FEED, STOP, EJECT};
     public MixerByShooterState mixerByShooterState = MixerByShooterState.STOP;
-    private static final double MIXER_SHOOTER_FEED_SPEED = -0.5;
+    private static final double MIXER_SHOOTER_FEED_SPEED = 0.5;
+    private static final double MIXER_SHOOTER_CLEAR_SPEED = -0.5;
     private static final double MIXER_MOTOR_DELAY_TIME = 0.25;
 
     private enum MixerMotorDelayState { OFF, RUNNING, WAITING}
@@ -181,10 +182,16 @@ mixerMotor = new WPI_VictorSPX(12);
             return;
         }
         if (mixerByIntakeState == MixerByIntakeState.FEED) {
-            mixerMotor.set(MIXER_INTAKE_FEED_SPEED);
+            mixerMotor.set(-MIXER_INTAKE_FEED_SPEED);
             return;
         }              
-        
+
+        if (mixerByShooterState == MixerByShooterState.EJECT) {
+            // We need to clear out a jambed ball .. reverse mixer motor
+            mixerMotor.set(MIXER_SHOOTER_CLEAR_SPEED);
+            return;   
+        }
+
         // The only mode left is MixerByShooterState.FEED
         if (mixerMotorDelayState == MixerMotorDelayState.OFF) {
             // we are just starting for the first time

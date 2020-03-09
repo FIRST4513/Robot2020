@@ -49,8 +49,8 @@ private SpeedControllerGroup climbMotorGroup;
     private static final boolean BRAKE_OFF = true;
     private final double CLIMBTOTALHEIGHT = 55.5;           // Height in inches from bottom to top
 
-    private final double CLIMBPOTBOTTOMVALUE = 0.6;         // pot value when fully lowered
-    private final double CLIMBPOTTOPVALUE = 2.5;            // pot value when fully raised
+    private final double CLIMBPOTBOTTOMVALUE =0.80;         // pot value when fully lowered
+    private final double CLIMBPOTTOPVALUE = 2.7;            // pot value when fully raised
     private final double CLIMBPOTRANGEVALUE = CLIMBPOTTOPVALUE - CLIMBPOTBOTTOMVALUE;
 
     private double climbPotbottomValue = CLIMBPOTBOTTOMVALUE;

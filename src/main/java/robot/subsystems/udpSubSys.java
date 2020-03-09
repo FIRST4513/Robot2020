@@ -102,12 +102,8 @@ public class udpSubSys extends Subsystem {
     // Put methods for controlling this subsystem
     // here. Call these from Commands.
 
-    public void setSmartdashUpdatesOn(){
-        uDPSmardashState = UDPSmardashState.UPDATE;
-    }
-    public void setSmartdashUpdatesOf(){
-        uDPSmardashState = UDPSmardashState.NOUPDATE;
-    }
+    public void setSmartdashUpdatesOn()     { uDPSmardashState = UDPSmardashState.UPDATE; }
+    public void setSmartdashUpdatesOf()     { uDPSmardashState = UDPSmardashState.NOUPDATE; }
 
     // Get Vision Target data
     public boolean isValidVisionTarget()    { return validVisionTarget; }
@@ -269,8 +265,8 @@ public class udpSubSys extends Subsystem {
             displayCnt++;
             return;
         }
-
         displayCnt = 0;
+        
         if (isRunning()){
             SmartDashboard.putString("UDP Server Status 2", "Is Running");
             //SmartDashboard.putString("UDP Server Last Rcvd Msg", getLastMessage(false));

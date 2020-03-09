@@ -103,7 +103,10 @@ udpSubSys = new udpSubSys();
     	actionChooser.addOption  ("1 Get Off Line",	"Line");
         actionChooser.addOption  ("3 Shoot High", 	"High");
         actionChooser.addOption   ("4 Shoot Low",     "Low");
-        actionChooser.setDefaultOption("3 Shoot High", 	"High");
+        actionChooser.addOption   ("5 Vision High",     "Vision");
+        actionChooser.addOption   ("6 Vision FORWARD High",     "VisionFwd");
+        actionChooser.addOption   ("7 Trench 3 Ball Pickup",     "Trench");
+        actionChooser.setDefaultOption("5 Vision High", 	"Vision");
         SmartDashboard.putData("Action-Choice",actionChooser);
         
         checkForPS4Contoller();
@@ -129,6 +132,10 @@ udpSubSys = new udpSubSys();
     @Override
     public void autonomousInit() {
         checkForPS4Contoller();
+        Robot.drivetrain.resetGyro();
+        Robot.drivetrain.resetEncodersAndStats();
+        Robot.shooterSubSys.resetHoodEncoder();
+
         sysTimer.reset();			// System timer for Competition run
     	sysTimer.start();
 
@@ -163,7 +170,34 @@ udpSubSys = new udpSubSys();
 		    autoCmd = new autoNoVisionCtrHighGoalCmdGrp();
 		    autoCmd.start();
         }
-        
+
+        if (actionChoice.equals("Vision")){
+        	// Start on line ratate to ctr and then align hood/rotate by vision   	
+    	    line = "Vision Line Auto Routine ("  + actionChoice + ") - autoVisionCtrHighGoalCmdGrp";
+    	    System.out.println(line);
+    	    //Robot.logger.appendLog(line);  	
+		    autoCmd = new autoVisionCtrHighGoalCmdGrp();
+		    autoCmd.start();
+        }
+
+        if (actionChoice.equals("VisionFwd")){
+        	// Start on line ratate to ctr and then align hood/rotate by vision   	
+    	    line = "Vision Line FORWARD Auto Routine ("  + actionChoice + ") - autoVisionFwdDriveCmdGrp";
+    	    System.out.println(line);
+    	    //Robot.logger.appendLog(line);  	
+		    autoCmd = new autoVisionFwdDriveCmdGrp();
+		    autoCmd.start();
+        }
+
+        if (actionChoice.equals("Trench")){
+        	// Shoot 3 ball from trench and then go get 3 move snd shoot them   	
+    	    line = "Shoot Trench and get 3 more and shoot them ("  + actionChoice + ") - auto3BallPickupCmdGrp";
+    	    System.out.println(line);
+    	    //Robot.logger.appendLog(line);  	
+		    autoCmd = new auto3BallPickupCmdGrp();
+		    autoCmd.start();
+        }
+
         if (actionChoice.equals("Low")){
         	// Shoot low goal and get off line   	
     	    line = "Shoot low goal and get off line Selected ("  + actionChoice + ") - AutoLineOnlyCmdGrp";
@@ -187,6 +221,9 @@ udpSubSys = new udpSubSys();
         checkForPS4Contoller();
         Robot.climberSubSys.releaseBrake();
         Robot.drivetrain.setGearHI();
+        Robot.drivetrain.resetGyro();
+        Robot.drivetrain.resetEncodersAndStats();
+        Robot.shooterSubSys.resetHoodEncoder();
 
         // This makes sure that the autonomous stops running when
         // teleop starts running. If you want the autonomous to
