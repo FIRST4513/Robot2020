@@ -39,7 +39,7 @@ public class drivetrainUpdateDashboardCmd extends Command {
     // Called just before this Command runs the first time
     @Override
     protected void initialize() {
-        if (m_on = true) {
+        if (m_on == true) {
             Robot.drivetrain.setSmartdashUpdatesOn();
         } else {
             Robot.drivetrain.setSmartdashUpdatesOf();

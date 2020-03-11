@@ -94,7 +94,8 @@ public class shooterFireCmd extends Command {
         if (m_mode == 1) {
             // fire by Autonomous from 10 foot mark
             setTimeout(m_timeout);
-            line = ("shooterFireCmd has been started by Autonomous Firing -------- Starting RPM ="+ Robot.shooterSubSys.getFlywheelRPM());
+            line = ("shooterFireCmd has been started by Autonomous Firing -------- Starting RPM =" +
+                     Robot.shooterSubSys.getFlywheelRPM() + " Timeout="+ m_timeout);
             modeState = ModeState.AUTO_10Foot;
         }
         System.out.println(line);

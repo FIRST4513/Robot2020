@@ -47,16 +47,16 @@ private SpeedControllerGroup climbMotorGroup;
 
     private static final boolean BRAKE_ON = false;
     private static final boolean BRAKE_OFF = true;
-    private final double CLIMBTOTALHEIGHT = 55.5;           // Height in inches from bottom to top
+    //private final double CLIMBTOTALHEIGHT = 55.5;           // Height in inches from bottom to top
 
     private final double CLIMBPOTBOTTOMVALUE =0.80;         // pot value when fully lowered
     private final double CLIMBPOTTOPVALUE = 2.7;            // pot value when fully raised
-    private final double CLIMBPOTRANGEVALUE = CLIMBPOTTOPVALUE - CLIMBPOTBOTTOMVALUE;
+    //private final double CLIMBPOTRANGEVALUE = CLIMBPOTTOPVALUE - CLIMBPOTBOTTOMVALUE;
 
     private double climbPotbottomValue = CLIMBPOTBOTTOMVALUE;
     private double climbPotTopValue = CLIMBPOTTOPVALUE;
-    private double climbPotCurrentValue = 0;
-    private double climbPosition = 0;
+    //private double climbPotCurrentValue = 0;
+    //private double climbPosition = 0;
 
 
     public climberSubSys() {
@@ -98,7 +98,7 @@ addChild("ClimbMotorGroup",climbMotorGroup);
     public BrakeValue currentBrakeValue = BrakeValue.NO_BRAKE;
     private static final double POT_CONVERSION_FACTOR = 1;
     private double currentPotValue = 0;
-    private double currentHeightValue = 0;
+    //private double currentHeightValue = 0;
     private double currentPowerValue = 0;
 
     @Override
@@ -216,9 +216,7 @@ addChild("ClimbMotorGroup",climbMotorGroup);
         displayCnt = 0;
 
         currentPotValue = climbPotentiometer.get();
-        currentHeightValue = getHeight();        
-        //SmartDashboard.putNumber("Current Climb Pot Value", currentPotValue);
-        //SmartDashboard.putNumber("Current Climb Height Value", currentHeightValue);
+        SmartDashboard.putNumber("Current Climb Pot Value", currentPotValue);
         SmartDashboard.putNumber("Current ClimbPower Value", currentPowerValue);
         
         if(currentBrakeValue == BrakeValue.BRAKE) {

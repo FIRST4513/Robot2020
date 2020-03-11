@@ -39,7 +39,7 @@ public class shooterUpdateDashboardCmd extends Command {
     // Called just before this Command runs the first time
     @Override
     protected void initialize() {
-        if (m_on = true) {
+        if (m_on == true) {
             Robot.shooterSubSys.setSmartdashUpdatesOn();
         } else {
             Robot.shooterSubSys.setSmartdashUpdatesOf();

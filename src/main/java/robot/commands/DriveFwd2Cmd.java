@@ -37,9 +37,8 @@ public class DriveFwd2Cmd extends Command {
 
     Timer startTmr = new Timer();
     int stallCtr = 0;
-    final double START_TIME = 0.08;				// Time to wait for motors to start moving robot
-	final double STALL_VELOCITY = 2.0;			// Speed less than this will indicate stopped 
-	final double LO_SPEED_VELOCITY = 15.0;		// Speed less than this will indicate stopped 
+    final double START_TIME = 0.2;				// Time to wait for motors to start moving robot
+	final double STALL_VELOCITY = 3.0;			// Speed less than this will indicate stopped 
     final double STOP_PWR  = - 0.50;			// Power to reverse motors to brake
     double currStop_pwr = STOP_PWR;
     

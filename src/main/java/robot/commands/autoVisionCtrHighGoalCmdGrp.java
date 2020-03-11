@@ -49,13 +49,8 @@ public class autoVisionCtrHighGoalCmdGrp extends CommandGroup {
 
         addParallel(new flywheelOnHighCmd()); 
 
-        //addParallel(new autoSwingTurretToCenterPosCmd());
-        //                shooterRotateToPositionCmd(double position, double speed, boolean brake, double timeout)
-        addSequential(new shooterRotateToPositionCmd(          90,            0.5,        false,             3));
 
-        // Set hood for High target Close range
-        //addSequential(new hoodToPositionCmd(3.6, 5.0));
-        addSequential(new hoodToPositionCmd(2.25, 3.0));
+        addSequential(new autoTurretPos0CmdGrp());
 
         // Shooter aim by vision - mode = 1 look for target align and get out
         //                shooterAimByVisionCmd(int mode, double timeout)
@@ -69,7 +64,8 @@ public class autoVisionCtrHighGoalCmdGrp extends CommandGroup {
 
         // Move off line
         //		 		DriveFwd2Cmd		( tgtDist,   Pwr,     Hdg,   Mode,   TO,   Brake, LimitOverideFlag))
-        addSequential(new DriveFwd2Cmd		(  -24.0,    1.0,    0.0,    1,     4.0,  false,      false));
+        addSequential(new DriveFwd2Cmd		(  -24.0,    1.0,     0.0,    1,     4.0,  false,      false));
+        
         addSequential(new DriveBrakeCmd		(  3.0));  
 
     } 

@@ -99,13 +99,14 @@ udpSubSys = new udpSubSys();
         locChooser.setDefaultOption("0 Center", 	"Center");
         SmartDashboard.putData("Location-Choice",locChooser);
         
-        actionChooser.addOption  ("0 Do Noting", 	"Nothing");
-    	actionChooser.addOption  ("1 Get Off Line",	"Line");
-        actionChooser.addOption  ("3 Shoot High", 	"High");
-        actionChooser.addOption   ("4 Shoot Low",     "Low");
-        actionChooser.addOption   ("5 Vision High",     "Vision");
-        actionChooser.addOption   ("6 Vision FORWARD High",     "VisionFwd");
-        actionChooser.addOption   ("7 Trench 3 Ball Pickup",     "Trench");
+        actionChooser.addOption   ("0 Do Noting", 	        "Nothing");
+    	actionChooser.addOption   ("1 Get Off Line",	    "Line");
+        actionChooser.addOption   ("3 Shoot High", 	        "High");
+        actionChooser.addOption   ("4 Shoot Low",           "Low");
+        actionChooser.addOption   ("5 Vision High",         "Vision");
+        actionChooser.addOption   ("6 Vision FORWARD High", "VisionFwd");
+        actionChooser.addOption   ("7 Trench 3 Ball Pickup","Trench");
+        
         actionChooser.setDefaultOption("5 Vision High", 	"Vision");
         SmartDashboard.putData("Action-Choice",actionChooser);
         
@@ -141,8 +142,7 @@ udpSubSys = new udpSubSys();
 
         //autonomousCommand = chooser.getSelected();
         // schedule the autonomous command (example)
-
-        String locChoice = locChooser.getSelected();    	    	
+    	    	
     	String actionChoice = actionChooser.getSelected();
 
         if (actionChoice.equals("Nothing")){
@@ -157,7 +157,7 @@ udpSubSys = new udpSubSys();
         	// Cross line onto Left/Right Side   	
     	    line = "Get Off line Only  Selected ("  + actionChoice + ") - AutoLineOnlyCmdGrp";
     	    System.out.println(line);
-    	    //Robot.logger.appendLog(line);  	
+    	    Robot.logger.appendLog(line);  	
 		    autoCmd = new autoLineOnlyCmdGrp();
 		    autoCmd.start();
 		}
@@ -166,7 +166,7 @@ udpSubSys = new udpSubSys();
         	// Shoot high goal and get off line   	
     	    line = "Shoot high goal and get off line Selected ("  + actionChoice + ") - AutoLineOnlyCmdGrp";
     	    System.out.println(line);
-    	    //Robot.logger.appendLog(line);  	
+    	    Robot.logger.appendLog(line);  	
 		    autoCmd = new autoNoVisionCtrHighGoalCmdGrp();
 		    autoCmd.start();
         }
@@ -175,7 +175,7 @@ udpSubSys = new udpSubSys();
         	// Start on line ratate to ctr and then align hood/rotate by vision   	
     	    line = "Vision Line Auto Routine ("  + actionChoice + ") - autoVisionCtrHighGoalCmdGrp";
     	    System.out.println(line);
-    	    //Robot.logger.appendLog(line);  	
+    	    Robot.logger.appendLog(line);  	
 		    autoCmd = new autoVisionCtrHighGoalCmdGrp();
 		    autoCmd.start();
         }
@@ -184,7 +184,7 @@ udpSubSys = new udpSubSys();
         	// Start on line ratate to ctr and then align hood/rotate by vision   	
     	    line = "Vision Line FORWARD Auto Routine ("  + actionChoice + ") - autoVisionFwdDriveCmdGrp";
     	    System.out.println(line);
-    	    //Robot.logger.appendLog(line);  	
+    	    Robot.logger.appendLog(line);  	
 		    autoCmd = new autoVisionFwdDriveCmdGrp();
 		    autoCmd.start();
         }
@@ -193,7 +193,7 @@ udpSubSys = new udpSubSys();
         	// Shoot 3 ball from trench and then go get 3 move snd shoot them   	
     	    line = "Shoot Trench and get 3 more and shoot them ("  + actionChoice + ") - auto3BallPickupCmdGrp";
     	    System.out.println(line);
-    	    //Robot.logger.appendLog(line);  	
+    	    Robot.logger.appendLog(line);  	
 		    autoCmd = new auto3BallPickupCmdGrp();
 		    autoCmd.start();
         }
