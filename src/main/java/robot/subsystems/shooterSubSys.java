@@ -53,7 +53,7 @@ public class shooterSubSys extends Subsystem {
     
     private double displayCnt = 3;
 
-    
+    // Comment test
     // --------- Lidar variables ------  
     private DigitalInput lidarSensor;
     private Counter lidarCounter;
