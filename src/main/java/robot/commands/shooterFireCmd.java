@@ -158,20 +158,28 @@ public class shooterFireCmd extends Command {
         // ------- High Goal --------
         overide = Robot.oi.coDriverJoystick.getRawButton(MANUAL_OVERIDE_BTN);  
         currentRPM = Robot.shooterSubSys.getFlywheelRPM();
-        delta = currentRPM-targetRPM;
-
-        if (( firstTimeFlag == 0 ) && (currentRPM < Robot.shooterSubSys.HIGH_GOAL_MIN_SPEED) && (overide==false)) {
-            // We are NOT up to speed yet so wait
-            Robot.shooterSubSys.handoffMotorStop();
-            Robot.intakeSubSys.mixerByShooterState = MixerByShooterState.STOP;
-            return;
-        }
+        //if (( firstTimeFlag == 0 ) && (currentRPM < Robot.shooterSubSys.HIGH_GOAL_MIN_SPEED) && (overide==false)) {
+        //    // We are NOT up to speed yet so wait
+        //    Robot.shooterSubSys.handoffMotorStop();
+        //    Robot.intakeSubSys.mixerByShooterState = MixerByShooterState.STOP;
+        //    return;
+        //}
 
         // We have reached speed so OK to Fire
-        firstTimeFlag = 1;  
-        Robot.shooterSubSys.handoffMotorSet(HANDOFF_MOTOR_FEED_SPEED );
-        Robot.intakeSubSys.mixerByShooterState = MixerByShooterState.FEED;
-        line = ("   HIGH Goal shooter is Up to speed !");
+        //firstTimeFlag = 1;  
+        delta = currentRPM-targetRPM;
+        //if (((Math.abs(delta) < Robot.shooterSubSys.PID_FIRE_DELTA)) || (overide)){
+        if (( (Math.abs(delta)<Robot.shooterSubSys.PID_FIRE_DELTA) /*&& currentRPM<targetRPM*/) 
+                || (overide)){
+            Robot.shooterSubSys.handoffMotorSet(HANDOFF_MOTOR_FEED_SPEED );
+            Robot.intakeSubSys.mixerByShooterState = MixerByShooterState.FEED;
+        } else {
+            Robot.shooterSubSys.handoffMotorStop();
+            Robot.intakeSubSys.mixerByShooterState = MixerByShooterState.STOP;
+
+            line = ("   HIGH Goal shooter is Up to speed !");
+        }
+
         //Robot.logger.appendLog(line);
 
         // Were here because we are shooting High goal not during autonomous

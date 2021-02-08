@@ -43,9 +43,9 @@ public class shooterSubSys extends Subsystem {
 
     String line;
 
-    public final double HIGH_GOAL_SPEED = 7800; //9050.0;
-    public final double HIGH_GOAL_MIN_SPEED = 7500;  // Thos is the minimum speed need to start firing
-    public final double LOW_GOAL_SPEED = 5000.0;
+    public double HIGH_GOAL_SPEED = 8000; //9050.0;
+    public double HIGH_GOAL_MIN_SPEED = 7500;  // Thos is the minimum speed need to start firing
+    public double LOW_GOAL_SPEED = 5000.0;
     public final double PID_FIRE_DELTA = 100.0;     // The range +- OK to Fire
 
     public final boolean LOW_GOAL = false;
@@ -105,14 +105,14 @@ public class shooterSubSys extends Subsystem {
 
     // Start-up from stop PID parameters
     private double sP = 0.0002;
-    private  double sI = 0.0000003;
+    private double sI = 0.0000003;
     private double sD = 0.0;
     private double sIz = 0.0;
     private double sFF = 0.0;
 
     // Cruise PID parameters
     private double kP = 0.001;
-    private double kI = 0.00000001;
+    private double kI = 0.00000000001;
     private double kD = 0.02;
     private double kIz = 0.0;
     private double kFF = 0.0;
@@ -200,6 +200,27 @@ rotateEncoder.setPIDSourceType(PIDSourceType.kRate);
     // Instantiate the SparkMax Speed Controllers
     instantiateSparkMaxControllers();
     rotateEncoder.reset();
+
+    SmartDashboard.putNumber("Flywheel Set Point", flywheelSetPoint);
+    SmartDashboard.putNumber("Turret Rotate Power", turretRotatePower);
+    SmartDashboard.putNumber("Turret Hood Power", turretHoodPower);
+    SmartDashboard.putNumber("Handoff Power", handoffPower);
+    SmartDashboard.putNumber("Flywheel RPM", getFlywheelRPM());
+    SmartDashboard.putNumber("Flywheel Target RPM", targetRPM);
+
+    // read PID coefficients from SmartDashboard       
+    SmartDashboard.putNumber("Start P Gain", sP);
+    SmartDashboard.putNumber("Start I Gain", sI);
+    SmartDashboard.putNumber("Start D Gain", sD);
+    SmartDashboard.putNumber("Start I Zone", sIz);
+    SmartDashboard.putNumber("Start Feed Forward", sFF);
+
+    SmartDashboard.putNumber("Cruise P Gain", kP);
+    SmartDashboard.putNumber("Cruise I Gain", kI);
+    SmartDashboard.putNumber("Cruise D Gain", kD);
+    SmartDashboard.putNumber("Cruise I Zone", kIz);
+    SmartDashboard.putNumber("Cruise Feed Forward", kFF);
+
     post_Startup_PID_Data();              // setup for startup PID
 
     // Instantiate the Lidar Sensor
@@ -224,6 +245,8 @@ rotateEncoder.setPIDSourceType(PIDSourceType.kRate);
 
     @Override
     public void periodic() {
+        HIGH_GOAL_SPEED =  SmartDashboard.getNumber("Flywheel Set Point", flywheelSetPoint); // TODO Remove test only
+        LOW_GOAL_SPEED = HIGH_GOAL_SPEED;                                                   // TODO Remove test only
         SmartDashboard.putNumber("Flywheel RPM", getFlywheelRPM());
         processFlywheelState();
 
@@ -362,6 +385,7 @@ rotateEncoder.setPIDSourceType(PIDSourceType.kRate);
                 }
             }
             // continue to update setpoint
+            targetRPM = SmartDashboard.getNumber("Flywheel Set Point", flywheelSetPoint);
             flyWheelMotor_pidController.setReference(targetRPM/2, ControlType.kVelocity); 
         }
 
@@ -657,13 +681,13 @@ rotateEncoder.setPIDSourceType(PIDSourceType.kRate);
 
     public void post_Cruise_PID_Data(){
         // read PID coefficients from SmartDashboard
-        // double p = SmartDashboard.getNumber("P Gain", 0);
-        // double i = SmartDashboard.getNumber("I Gain", 0);
-        // double d = SmartDashboard.getNumber("D Gain", 0);
-        // double iz = SmartDashboard.getNumber("I Zone", 0);
-        // double ff = SmartDashboard.getNumber("Feed Forward", 0);
-        // double max = SmartDashboard.getNumber("Max Output", 0);
-        // double min = SmartDashboard.getNumber("Min Output", 0);
+         double p = SmartDashboard.getNumber("P Gain", 0);
+         double i = SmartDashboard.getNumber("I Gain", 0);
+         double d = SmartDashboard.getNumber("D Gain", 0);
+         double iz = SmartDashboard.getNumber("I Zone", 0);
+         double ff = SmartDashboard.getNumber("Feed Forward", 0);
+         double max = SmartDashboard.getNumber("Max Output", 0);
+         double min = SmartDashboard.getNumber("Min Output", 0);
         // pidFireDelta = SmartDashboard.getNumber("Fire Delta RPM", pidFireDelta);
         flyWheelMotor_pidController.setP(kP);
         flyWheelMotor_pidController.setI(kI);
@@ -676,12 +700,12 @@ rotateEncoder.setPIDSourceType(PIDSourceType.kRate);
 
     public void post_Startup_PID_Data(){
         // read PID coefficients from SmartDashboard
-        // double p = SmartDashboard.getNumber("Start P Gain", 0);
-        // double i = SmartDashboard.getNumber("Start I Gain", 0);
-        // double d = SmartDashboard.getNumber("Start D Gain", 0);
-        // double iz = SmartDashboard.getNumber("Start I Zone", 0);
-        // double ff = SmartDashboard.getNumber("Start Feed Forward", 0);
-        // pidFireDelta = SmartDashboard.getNumber("Fire Delta RPM", pidFireDelta);
+         double p = SmartDashboard.getNumber("Start P Gain", 0);
+         double i = SmartDashboard.getNumber("Start I Gain", 0);
+         double d = SmartDashboard.getNumber("Start D Gain", 0);
+         double iz = SmartDashboard.getNumber("Start I Zone", 0);
+         double ff = SmartDashboard.getNumber("Start Feed Forward", 0);
+         //pidFireDelta = SmartDashboard.getNumber("Fire Delta RPM", pidFireDelta);
         flyWheelMotor_pidController.setP(sP);
         flyWheelMotor_pidController.setI(sI);
         flyWheelMotor_pidController.setD(sD);
@@ -717,25 +741,25 @@ rotateEncoder.setPIDSourceType(PIDSourceType.kRate);
         SmartDashboard.putNumber("Rotate Encoder Value", getRotateEncoderValue());
         SmartDashboard.putNumber("Rotate Encoder Angle", getRotateAngle());
 
-        SmartDashboard.putNumber("Flywheel Set Point", flywheelSetPoint);
-        SmartDashboard.putNumber("Turret Rotate Power", turretRotatePower);
-        SmartDashboard.putNumber("Turret Hood Power", turretHoodPower);
-        SmartDashboard.putNumber("Handoff Power", handoffPower);
-        //SmartDashboard.putNumber("Flywheel RPM", getFlywheelRPM());
-        SmartDashboard.putNumber("Flywheel Target RPM", targetRPM);
+        // SmartDashboard.putNumber("Flywheel Set Point", flywheelSetPoint);
+        // SmartDashboard.putNumber("Turret Rotate Power", turretRotatePower);
+        // SmartDashboard.putNumber("Turret Hood Power", turretHoodPower);
+        // SmartDashboard.putNumber("Handoff Power", handoffPower);
+        // SmartDashboard.putNumber("Flywheel RPM", getFlywheelRPM());
+        // SmartDashboard.putNumber("Flywheel Target RPM", targetRPM);
 
-        // read PID coefficients from SmartDashboard       
-        // SmartDashboard.putNumber("Start P Gain", sP);
-        // SmartDashboard.putNumber("Start I Gain", sI);
-        // SmartDashboard.putNumber("Start D Gain", sD);
-        // SmartDashboard.putNumber("Start I Zone", sIz);
-        // SmartDashboard.putNumber("Start Feed Forward", sFF);
+        // // read PID coefficients from SmartDashboard       
+        //  SmartDashboard.putNumber("Start P Gain", sP);
+        //  SmartDashboard.putNumber("Start I Gain", sI);
+        //  SmartDashboard.putNumber("Start D Gain", sD);
+        //  SmartDashboard.putNumber("Start I Zone", sIz);
+        //  SmartDashboard.putNumber("Start Feed Forward", sFF);
 
-        // SmartDashboard.putNumber("Cruise P Gain", kP);
-        // SmartDashboard.putNumber("Cruise I Gain", kI);
-        // SmartDashboard.putNumber("Cruise D Gain", kD);
-        // SmartDashboard.putNumber("Cruise I Zone", kIz);
-        // SmartDashboard.putNumber("Cruise Feed Forward", kFF);
+        //  SmartDashboard.putNumber("Cruise P Gain", kP);
+        //  SmartDashboard.putNumber("Cruise I Gain", kI);
+        //  SmartDashboard.putNumber("Cruise D Gain", kD);
+        //  SmartDashboard.putNumber("Cruise I Zone", kIz);
+        //  SmartDashboard.putNumber("Cruise Feed Forward", kFF);
 
         // SmartDashboard.putNumber("Max Output", maxOutput);
         // SmartDashboard.putNumber("Min Output", minOutput);
