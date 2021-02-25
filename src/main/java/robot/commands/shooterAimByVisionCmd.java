@@ -36,7 +36,7 @@ public class shooterAimByVisionCmd extends Command {
 
     private static double visionTgtBearing = 0;
     private static double visionTgtYangle = 0;
-    private static double visionTgtDistance = 0;
+    //private static double visionTgtDistance = 0;
     
     private static double lidarDoistance = 0;
     private static double currentHoodAngle = 0;
@@ -121,6 +121,10 @@ public class shooterAimByVisionCmd extends Command {
             rotateStatus = RotateStatus.DONE;
             hoodStatus = HoodStatus.DONE;
         }
+
+        Robot.limelightSubSys.setLedOn();
+        Robot.limelightSubSys.setCamModetoVision();
+        Robot.limelightSubSys.setPipeline(0);
     }
 
 
@@ -162,11 +166,16 @@ public class shooterAimByVisionCmd extends Command {
     // Called once after isFinished returns true
     @Override
     protected void end() {
+        Robot.limelightSubSys.setLedOff();
+        Robot.limelightSubSys.setCamModetoDriver();
+        Robot.limelightSubSys.setPipeline(1);
+        
         Robot.shooterSubSys.turretRotateMotorStop();
         Robot.shooterSubSys.turretHoodMotorStop();
         line = "shooterAimByVisionCmd ended !";
         System.out.println(line);
         Robot.logger.appendLog(line); 
+
     }
 
     // Called when another command which requires one or more of the same
@@ -265,6 +274,8 @@ public class shooterAimByVisionCmd extends Command {
         double turretRotateSpeed = 0;
         currentHoodAngle = Robot.shooterSubSys.getRotateAngle();
 
+
+        /*
         if (Robot.udpSubSys.isValidVisionTarget() == true) {
             // We have a valid target in sight so lets update our target data
             visionTgtBearing = Robot.udpSubSys.getXangle();    
@@ -272,7 +283,7 @@ public class shooterAimByVisionCmd extends Command {
             visionTgtYangle = Robot.udpSubSys.getYangle();
             visionTgtDistance = Robot.udpSubSys.getVisionDistance();
             line = ("We have a valid vision Target XAngle=" + visionTgtBearing +
-                     " VisionTgtDistance=" + visionTgtDistance +
+            //         " VisionTgtDistance=" + visionTgtDistance +
                      " VisionTgtYangle=" + visionTgtYangle);
             Robot.logger.appendLog(line); 
         } else {
@@ -281,6 +292,25 @@ public class shooterAimByVisionCmd extends Command {
             visionTgtYangle = 0;
             visionTgtDistance = 0;
         }
+        */
+        if (Robot.limelightSubSys.isValidVisionTarget() == true) {
+            // We have a valid target in sight so lets update our target data
+            visionTgtBearing = Robot.udpSubSys.getXangle();    
+            targetHoodAngle = currentHoodAngle + visionTgtBearing;
+            visionTgtYangle = Robot.udpSubSys.getYangle();
+            //visionTgtDistance = Robot.udpSubSys.getVisionDistance();
+            line = ("We have a valid vision Target XAngle=" + visionTgtBearing +
+                     " TgtDistance=" + targetDistance +
+                     " VisionTgtYangle=" + visionTgtYangle);
+            Robot.logger.appendLog(line); 
+        } else {
+            // No Valid vision target
+            visionTgtBearing = 0;    
+            visionTgtYangle = 0;
+            //visionTgtDistance = 0;
+        }
+
+
 
         // Were not done yet
         turretRotateSpeed = Robot.shooterSubSys.calcRotateMotorForPosition(currentHoodAngle, targetHoodAngle, TARGET_X_DEADBAND);
